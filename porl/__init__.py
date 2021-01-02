@@ -2,7 +2,7 @@ import gym
 
 
 def make(task : str):
-    if True:    
+    try:    
         if task.startswith("ib"):
             from porl.porl_envs.ib import ib_envs
             assert task in ib_envs.keys()
@@ -24,11 +24,9 @@ def make(task : str):
             from porl.porl_envs import d4rl
             env = mujoco.make_env(task)
         else:
-            env = None
-    else:
-    #except Exception as e:
-        print(e)
-        #print(f'Warning: Env {task} can not be create. Pleace Check!')
-        env = None
+            raise ValueError(f'Env {task} is not supported!') 
+    except Exception as e:
+        print(f'Warning: Env {task} can not be create. Pleace Check!')
+        raise e
 
     return env
