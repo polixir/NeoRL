@@ -20,9 +20,9 @@ def make(task : str):
         elif task in ["HalfCheetah-v3", "Walker2d-v3", "Hopper-v3"]:
             from porl.porl_envs import mujoco
             env = mujoco.make_env(task)
-        elif task in ['halfcheetah-meidum-v0', 'hopper-medium-v0', 'walker2d-medium-v0']:
+        elif task in ['halfcheetah-medium-v0', 'hopper-medium-v0', 'walker2d-medium-v0']:
             from porl.porl_envs import d4rl
-            env = mujoco.make_env(task)
+            env = d4rl.make_env(task)
         else:
             raise ValueError(f'Env {task} is not supported!') 
     except Exception as e:
