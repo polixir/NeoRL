@@ -20,8 +20,7 @@ setup(
         'pandas',
         'opencv_python',
         'torch',
-        'tqdm',
-        'tianshou'
+        'tqdm'
     ]
     
 )
