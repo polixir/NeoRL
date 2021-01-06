@@ -1,3 +1,4 @@
+from porl.porl_envs import core
 import gym
 import os
 from gym.utils import seeding
@@ -246,7 +247,7 @@ def building_loader(data_path, building_attributes, weather_file, solar_profile,
 
     return buildings, observation_spaces, action_spaces, observation_space_central_agent, action_space_central_agent
 
-class CityLearn(gym.Env):  
+class CityLearn(core.EnvData):  
     def __init__(self, 
                 data_path, 
                 building_attributes, 
