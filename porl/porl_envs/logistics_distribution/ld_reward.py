@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 
-from porl.porl_envs.tsp.TspEnv import NORTH, EAST, SOUTH, WEST
+from porl.porl_envs.logistics_distribution.ld_env import NORTH, EAST, SOUTH, WEST
 
 
 def get_reward(data):

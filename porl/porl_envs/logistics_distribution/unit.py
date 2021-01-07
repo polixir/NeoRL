@@ -6,12 +6,12 @@ import numpy as np
 import torch
 from tqdm import tqdm
 
-from porl.porl_envs.tsp.TspEnv import ToyTSP
+from porl.porl_envs.logistics_distribution.ld_env import LogisticsDistributionEnv
 
 log_path = 'log/tsp-v0/dqn/'
 
 
-def cal_optim(env: ToyTSP):
+def cal_optim(env: LogisticsDistributionEnv):
     """
     Theoretically optimal strategy
     :return: (optim_return, length)

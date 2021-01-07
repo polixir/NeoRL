@@ -16,7 +16,7 @@ DIREC_DICT = {
 }
 
 
-class ToyTSP(gym.Env):
+class LogisticsDistributionEnv(gym.Env):
     def __init__(self, length=100, grid=3, point_num=3, speed_max=5):
         self.LENGTH = length
         self.GRID = grid
