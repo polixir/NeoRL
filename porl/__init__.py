@@ -6,7 +6,7 @@ def make(task : str):
         if task.startswith("ib"):
             from porl.porl_envs.ib import ib_envs
             assert task in ib_envs.keys()
-            env = ib_envs[task] 
+            env = ib_envs[task]
         elif task == 'traffic':
             pass
         elif task == "citylearn":
@@ -24,7 +24,8 @@ def make(task : str):
             from porl.porl_envs import d4rl
             env = d4rl.make_env(task)
         else:
-            raise ValueError(f'Env {task} is not supported!') 
+            raise ValueError(f'Env {task} is not supported!')
+        env.name = task
     except Exception as e:
         print(f'Warning: Env {task} can not be create. Pleace Check!')
         raise e
