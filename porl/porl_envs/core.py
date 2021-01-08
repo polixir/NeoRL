@@ -102,9 +102,11 @@ def sample_by_num(data_dict: dict, num: int):
 
 
 class EnvData(gym.Env):
-    @staticmethod
-    def get_dataset(task_name_version: str, data_type: str = "high", train_num: int = 99, val_num: int = 10,
-                    download_train: bool = True, download_val: bool = True, noise: bool = True):
+    def get_dataset(self, task_name_version: str = None, data_type: str = "high", train_num: int = 99, val_num: int = 10,
+                    download_train: bool = True, download_val: bool = True, noise: bool = True, reward_func=None):
+
+        task_name_version = self.name if task_name_version is None else task_name_version
+
         data_json = get_json(OFFLINE_DATA_MAP)
 
         data_train, data_val = {}, {}
@@ -138,7 +140,6 @@ class EnvData(gym.Env):
 
         return [data_train, data_val]
 
-    @staticmethod
     def get_dataset_by_traj_num(task_name_version: str, traj_num: int, data_type: str = "high",
                                 train_or_val: str = "train", noise: bool = True, path: str = DATA_PATH,
                                 random: bool = False, seed: int = 123):
