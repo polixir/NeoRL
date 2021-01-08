@@ -172,8 +172,3 @@ class EnvData(gym.Env):
         samples = sample_by_num(data_train, num=traj_num) # random=random, seed=seed)
 
         return samples
-
-
-# data2 = EnvData.get_dataset("HalfCheetah-v3")
-samples = EnvData.get_dataset_by_traj_num("HalfCheetah-v3", traj_num=3, train_or_val="train")
-# print(samples)
