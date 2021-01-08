@@ -140,9 +140,12 @@ class EnvData(gym.Env):
 
         return [data_train, data_val]
 
-    def get_dataset_by_traj_num(task_name_version: str, traj_num: int, data_type: str = "high",
+    def get_dataset_by_traj_num(self, traj_num: int, task_name_version: str = None, data_type: str = "high",
                                 train_or_val: str = "train", noise: bool = True, path: str = DATA_PATH,
                                 random: bool = False, seed: int = 123):
+
+        task_name_version = self.name if task_name_version is None else task_name_version
+
         data_json = get_json(OFFLINE_DATA_MAP)
 
         local_files = search_local_files(task_name_version, train_or_val, path)
