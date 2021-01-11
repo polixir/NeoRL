@@ -119,11 +119,13 @@ class EnvData(gym.Env):
             data_url = data_json[data_key]
             data_path = download_dataset_from_url(data_url, name=data_key)
             data_npz = np.load(data_path)
-            data = dict(data_npz)
+            data_dict = dict(data_npz)
         except Exception:
             raise Exception(f"Could not find the dataset: {data_key}")
 
-        return data
+        self.reward = reward_func(data_dict) if reward_func is not None else None
+
+        return data_dict
 
     def get_dataset_by_traj_num(self, traj_num: int, task_name_version: str = None, data_type: str = "high",
                                 train_or_val: str = "train", noise: bool = True, path: str = DATA_PATH,
@@ -151,16 +153,19 @@ class EnvData(gym.Env):
         if noise:
             data_key = "-".join([data_key, "noise"])
         data_key = data_key + ".npz"
-        data_url = data_json[data_key]
-        data_path = download_dataset_from_url(data_url, name=data_key)
-        data_npz = np.load(data_path)
-        data = dict(data_npz)
+        try:
+            data_url = data_json[data_key]
+            data_path = download_dataset_from_url(data_url, name=data_key)
+            data_npz = np.load(data_path)
+            data_dict = dict(data_npz)
+        except Exception:
+            raise Exception(f"Could not find the dataset: {data_key}")
 
-        samples = sample_by_num(data, num=traj_num)  # random=random, seed=seed)
+        samples = sample_by_num(data_dict, num=traj_num)  # random=random, seed=seed)
 
         return samples
 
 
-a = EnvData()
-a.get_dataset("HalfCheetah-v3")
-a.get_dataset_by_traj_num(traj_num=10, task_name_version="HalfCheetah-v3")
+# a = EnvData()
+# a.get_dataset("HalfCheetah-v3")
+# a.get_dataset_by_traj_num(traj_num=10, task_name_version="HalfCheetah-v3")
