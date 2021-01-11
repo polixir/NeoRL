@@ -57,7 +57,7 @@ def search_local_files(filename, train_or_val="train", path=DATA_PATH):
 
 def find_local_file(files, traj_num, train_or_val="train"):
     """
-    Find appropriate least dataset in local according to traj_num.
+    Find appropriate least dataset in local according to num.
     """
     least_num = np.Inf
     for f in files:
@@ -73,7 +73,7 @@ def find_local_file(files, traj_num, train_or_val="train"):
 
 def find_remote_file(data_json, task_name_version, traj_num, train_or_val="train"):
     """
-    Find appropriate least dataset in remote (data_json) according to traj_num.
+    Find appropriate least dataset in remote (data_json) according to num.
     """
     least_num = np.Inf
     for k, v in data_json.items():
@@ -102,47 +102,34 @@ def sample_by_num(data_dict: dict, num: int):
 
 
 class EnvData(gym.Env):
-    def get_dataset(self, task_name_version: str = None, data_type: str = "high", train_num: int = 99, val_num: int = 10,
-                    download_train: bool = True, download_val: bool = True, noise: bool = True, reward_func=None):
+    def get_dataset(self, task_name_version: str = None, data_type: str = "high", num: int = 99,
+                    train_or_val: str = "train", noise: bool = True, reward_func=None):
+
+        assert train_or_val in ["train", "val"]
 
         task_name_version = self.name if task_name_version is None else task_name_version
 
         data_json = get_json(OFFLINE_DATA_MAP)
 
-        data_train, data_val = {}, {}
-        _data_key = "-".join([task_name_version, data_type])
+        data_key = "-".join([task_name_version, data_type, str(num), train_or_val])
+        if noise:
+            data_key = "-".join([data_key, "noise"])
+        data_key = data_key + ".npz"
+        try:
+            data_url = data_json[data_key]
+            data_path = download_dataset_from_url(data_url, name=data_key)
+            data_npz = np.load(data_path)
+            data = dict(data_npz)
+        except Exception:
+            raise Exception(f"Could not find the dataset: {data_key}")
 
-        if download_train:
-            data_key = "-".join([_data_key, str(train_num), "train"])
-            if noise:
-                data_key = "-".join([data_key, "noise"])
-            data_key = data_key + ".npz"
-            try:
-                data_url = data_json[data_key]
-                data_train_path = download_dataset_from_url(data_url, name=data_key)
-                data_train_npz = np.load(data_train_path)
-                data_train = dict(data_train_npz)
-            except Exception:
-                raise Exception(f"Could not find the dataset: {data_key}")
-
-        if download_val:
-            data_key = "-".join([_data_key, str(val_num), "val"])
-            if noise:
-                data_key = "-".join([data_key, "noise"])
-            data_key = data_key + ".npz"
-            try:
-                data_url = data_json[data_key]
-                data_val_path = download_dataset_from_url(data_url, name=data_key)
-                data_val_npz = np.load(data_val_path)
-                data_val = dict(data_val_npz)
-            except Exception:
-                raise Exception(f"Could not find the dataset: {data_key}")
-
-        return [data_train, data_val]
+        return data
 
     def get_dataset_by_traj_num(self, traj_num: int, task_name_version: str = None, data_type: str = "high",
                                 train_or_val: str = "train", noise: bool = True, path: str = DATA_PATH,
-                                random: bool = False, seed: int = 123):
+                                random: bool = False, seed: int = 123):  # TODO: support for random samples of traj
+
+        assert train_or_val in ["train", "val"]
 
         task_name_version = self.name if task_name_version is None else task_name_version
 
@@ -158,17 +145,22 @@ class EnvData(gym.Env):
             num = find_remote_file(data_json, task_name_version, traj_num, train_or_val)
 
         if num == np.Inf:
-            raise Exception("Could not find appropriate dataset, please reduce `traj_num`!")
+            raise Exception("Could not find appropriate dataset, please reduce `num`!")
 
         data_key = "-".join([task_name_version, data_type, str(num), train_or_val])
         if noise:
             data_key = "-".join([data_key, "noise"])
         data_key = data_key + ".npz"
         data_url = data_json[data_key]
-        data_train_path = download_dataset_from_url(data_url, name=data_key)
-        data_train_npz = np.load(data_train_path)
-        data_train = dict(data_train_npz)
+        data_path = download_dataset_from_url(data_url, name=data_key)
+        data_npz = np.load(data_path)
+        data = dict(data_npz)
 
-        samples = sample_by_num(data_train, num=traj_num) # random=random, seed=seed)
+        samples = sample_by_num(data, num=traj_num)  # random=random, seed=seed)
 
         return samples
+
+
+a = EnvData()
+a.get_dataset("HalfCheetah-v3")
+a.get_dataset_by_traj_num(traj_num=10, task_name_version="HalfCheetah-v3")

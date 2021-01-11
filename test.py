@@ -22,6 +22,6 @@ env = porl.make("HalfCheetah-v3")
 data = env.get_dataset("HalfCheetah-v3")
 print("test4444444444", data)
 
-env = porl.make("halfcheetah-medium-v0") # maze2d-open-v0
+env = porl.make("halfcheetah-medium-v0")  # TODO: need to be compatible with d4rl
 data = env.get_dataset()
 print("test5555555555", data)
