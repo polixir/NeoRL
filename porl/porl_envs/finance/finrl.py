@@ -1,4 +1,5 @@
 # https://github.com/AI4Finance-LLC/FinRL-Library
+from porl.porl_envs import core
 import os
 import numpy as np
 import pandas as pd
@@ -102,7 +103,7 @@ def create_env(trade=False):
         return env.create_env_training()
 
 
-class StockEnvTrain(gym.Env):
+class StockEnvTrain(core.EnvData):
     """A stock trading environment for OpenAI gym"""
     metadata = {'render.modes': ['human']}
 
@@ -291,7 +292,7 @@ class StockEnvTrain(gym.Env):
         return [seed]
 
 
-class StockEnvTrade(gym.Env):
+class StockEnvTrade(core.EnvData):
     """A stock trading environment for OpenAI gym"""
     metadata = {'render.modes': ['human']}
 
