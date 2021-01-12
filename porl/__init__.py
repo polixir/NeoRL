@@ -6,9 +6,7 @@ def make(task : str):
         if task.startswith("ib"):
             from porl.porl_envs.ib import ib_envs
             assert task in ib_envs.keys()
-            env = ib_envs[task] 
-        elif task == 'traffic':
-            pass
+            env = ib_envs[task]
         elif task == "citylearn":
             from porl.porl_envs.citylearn import citylearn_envs
             assert task in citylearn_envs.keys()
@@ -16,7 +14,12 @@ def make(task : str):
         elif task == 'finance':
             from porl.porl_envs.finance import finance_envs
             assert task in finance_envs.keys()
-            env = finance_envs[task] 
+            env = finance_envs[task]
+        elif task == 'logistics_distribution':
+            from porl.porl_envs.logistics_distribution import logistics_distribution_envs
+            assert task in logistics_distribution_envs.keys()
+            env = logistics_distribution_envs[task]
+
         elif task in ["HalfCheetah-v3", "Walker2d-v3", "Hopper-v3"]:
             from porl.porl_envs import mujoco
             env = mujoco.make_env(task)

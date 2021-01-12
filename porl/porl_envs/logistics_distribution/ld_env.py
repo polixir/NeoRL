@@ -195,3 +195,8 @@ class LogisticsDistributionEnv(gym.Env):
             assert 0
 
         return rew
+
+
+def create_env():
+    env = LogisticsDistributionEnv(length=8, grid=3, point_num=3)
+    return env
