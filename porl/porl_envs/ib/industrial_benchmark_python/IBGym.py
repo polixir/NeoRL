@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from porl.porl_envs import core
+from porl import core
 import gym
 import numpy as np
 from collections import OrderedDict

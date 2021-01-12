@@ -103,11 +103,11 @@ def sample_by_num(data_dict: dict, num: int):
 
 class EnvData(gym.Env):
     def get_dataset(self, task_name_version: str = None, data_type: str = "high", num: int = 99,
-                    train_or_val: str = "train", noise: bool = True, reward_func=None):
+                    train_or_val: str = "train", noise: bool = True, use_data_reward: bool = False):
 
         assert train_or_val in ["train", "val"]
 
-        task_name_version = self.name if task_name_version is None else task_name_version
+        task_name_version = self._name if task_name_version is None else task_name_version
 
         data_json = get_json(OFFLINE_DATA_MAP)
 
@@ -123,7 +123,9 @@ class EnvData(gym.Env):
         except Exception:
             raise Exception(f"Could not find the dataset: {data_key}")
 
-        self.reward = reward_func(data_dict) if reward_func is not None else None
+        if not use_data_reward:
+            __reward = self._reward_func(data_dict)  # support for calculating reward via customized reward func
+            data_dict["reward"] = __reward
 
         return data_dict
 
@@ -133,7 +135,7 @@ class EnvData(gym.Env):
 
         assert train_or_val in ["train", "val"]
 
-        task_name_version = self.name if task_name_version is None else task_name_version
+        task_name_version = self._name if task_name_version is None else task_name_version
 
         data_json = get_json(OFFLINE_DATA_MAP)
 
@@ -164,6 +166,12 @@ class EnvData(gym.Env):
         samples = sample_by_num(data_dict, num=traj_num)  # random=random, seed=seed)
 
         return samples
+
+    def set_reward_func(self, reward_func):
+        self._reward_func = reward_func
+
+    def set_name(self, name):
+        self._name = name
 
 
 # a = EnvData()

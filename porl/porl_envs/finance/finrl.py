@@ -1,5 +1,5 @@
 # https://github.com/AI4Finance-LLC/FinRL-Library
-from porl.porl_envs import core
+from porl import core
 import os
 import numpy as np
 import pandas as pd
