@@ -12,8 +12,9 @@ pip install -e .
 
 ```
 import porl
-
-env = porl.make("halfcheetah-meidum-v3")
-
 env = porl.make("citylearn")
+data = env.get_dataset()
+
+env = porl.make("HalfCheetah-v3")
+data = env.get_dataset("HalfCheetah-v3")
 ```
