@@ -19,7 +19,8 @@ setup(
         'dm_tree',
         'pandas',
         'opencv_python',
-        'torch'
+        'torch',
+        'tqdm'
     ]
     
 )
