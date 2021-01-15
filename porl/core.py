@@ -138,6 +138,8 @@ def sample_dataset(task_name_version, path, traj_num, data_json, data_type, use_
     samples = sample_by_num(data_dict, num=traj_num)  # random=random, seed=seed)
 
     if not use_data_reward:
+        if reward_func is None:
+            raise Exception("reward_func is None!")
         __reward = reward_func(samples)  # support for calculating reward via customized reward func
         samples["reward"] = __reward
 
@@ -181,3 +183,4 @@ class EnvData(gym.Env):
 
     def set_name(self, name):
         self._name = name
+

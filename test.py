@@ -15,5 +15,5 @@ train_data, val_data = env.get_dataset(train_num=99, data_type="M")
 env = porl.make("HalfCheetah-v3")
 train_data, val_data = env.get_dataset("HalfCheetah-v3")
 
-# env = porl.make("halfcheetah-medium-v0")  # TODO: need to be compatible with d4rl
-# train_data, val_data = env.get_dataset()
+env = porl.make("halfcheetah-medium-v0")  # TODO: need to be compatible with d4rl
+train_data, val_data = env.get_dataset()

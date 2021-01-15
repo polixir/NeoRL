@@ -27,13 +27,18 @@ def make(task : str, reward_func=None):
             env = d4rl.make_env(task)
         else:
             raise ValueError(f'Env {task} is not supported!')
-
-        env.set_name(task)
-        default_reward_func = importlib.import_module(f"porl.porl_envs.{task}.{task}_reward").get_reward
-        env.set_reward_func(default_reward_func if reward_func is None else reward_func)
-
     except Exception as e:
         print(f'Warning: Env {task} can not be create. Pleace Check!')
         raise e
 
+    env.set_name(task)
+
+    try:
+        default_reward_func = importlib.import_module(f"porl.porl_envs.{task}.{task}_reward").get_reward
+    except ModuleNotFoundError:
+        default_reward_func = None
+
+    env.set_reward_func(default_reward_func if reward_func is None else reward_func)
+
     return env
+
