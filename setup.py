@@ -14,12 +14,13 @@ setup(
         'numpy',
         'pygame',
         'attrdict',
-        'mujoco-py',
         'ray[tune]',
         'dm_tree',
         'pandas',
         'opencv_python',
         'torch'
-    ]
-    
+    ],
+    extras_require={
+        'mujoco': ['mujoco-py']
+    }
 )
