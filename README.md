@@ -16,8 +16,12 @@ pip install -e .
 
 After installation, CityLearn, Finance, and industrial benchmark will be available. If you want 
 to leverage MuJoCo in your tasks, it is necessary to obtain a [license](https://www.roboti.us/license.html) 
-and follow the setup instructions. So far "HalfCheetah-v3", "Walker2d-v3", "Hopper-v3" are 
-supported within MuJoCo.
+and follow the setup instructions, and then run:
+```
+pip install -e .[mujoco]
+```
+
+So far "HalfCheetah-v3", "Walker2d-v3", and "Hopper-v3" are supported within MuJoCo.
 
 ## Example
 
@@ -25,7 +29,7 @@ supported within MuJoCo.
 import porl
 
 env = porl.make("citylearn")
-train_data, val_data = env.get_dataset()  # Use default args here.
+train_data, val_data = env.get_dataset()  # Use default params here.
 ```
 
 As a benchmark, in order to test algorithms conveniently and quickly, each task is associated with 
