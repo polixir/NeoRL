@@ -95,7 +95,7 @@ def sample_by_num(data_dict: dict, num: int):
         if k == "index":
             samples[k] = v[0: num]
         else:
-            samples[k] = v[0: num * int(data_dict["index"][0])]
+            samples[k] = v[0: num * (int(data_dict["index"][1]) - int(data_dict["index"][0]))]
     return samples
 
 
@@ -128,6 +128,7 @@ def sample_dataset(task_name_version, path, traj_num, data_json, data_type, use_
                 data_path = download_dataset_from_url(data_url, name=i, to_path=path)
                 data_npz = np.load(data_path)
                 data_dict = dict(data_npz)
+                data_dict["index"] = np.insert(data_dict["index"], 0, 0)
                 break
             except Exception:
                 raise Exception(f"Could not download the dataset: {i}")
@@ -183,4 +184,3 @@ class EnvData(gym.Env):
 
     def set_name(self, name):
         self._name = name
-

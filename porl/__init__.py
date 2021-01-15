@@ -3,7 +3,7 @@ import importlib
 from porl.porl_envs.finance.finance_reward import get_reward
 
 
-def make(task : str, reward_func=None):
+def make(task: str, reward_func=None):
     try:    
         if task.startswith("ib"):
             from porl.porl_envs.ib import ib_envs
@@ -41,4 +41,3 @@ def make(task : str, reward_func=None):
     env.set_reward_func(default_reward_func if reward_func is None else reward_func)
 
     return env
-
