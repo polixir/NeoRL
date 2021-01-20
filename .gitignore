@@ -152,3 +152,4 @@ MUJOCO_LOG.TXT
 *.zip
 *.pstats
 data/
+*ipynb

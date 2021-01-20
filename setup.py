@@ -8,7 +8,7 @@ setup(
     description="PORL is an open-source benchmark for offline reinforcement learning",
     url="https://agit.ai/Polixir_AI/porl.git",
     python_requires=">=3.7",
-    version='0.1.0',
+    version='0.2.0',
     install_requires=[
         'gym',
         'numpy',
@@ -18,7 +18,8 @@ setup(
         'dm_tree',
         'pandas',
         'opencv_python',
-        'torch'
+        'torch',
+        'tqdm',
     ],
     extras_require={
         'mujoco': ['mujoco-py']
