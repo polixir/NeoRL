@@ -1,3 +1,4 @@
+from porl import core
 import gym
 import os
 from gym.utils import seeding
@@ -8,7 +9,7 @@ import json
 from gym import spaces
 from porl.porl_envs.citylearn.energy_models import HeatPump, ElectricHeater, EnergyStorage, Building
 from porl.porl_envs.citylearn.reward_function import reward_function_sa, reward_function_ma
-from pathlib import Path
+
 gym.logger.set_level(40)
 
 # Reference Rule-based controller. Used as a baseline to calculate the costs in CityLearn
@@ -246,7 +247,7 @@ def building_loader(data_path, building_attributes, weather_file, solar_profile,
 
     return buildings, observation_spaces, action_spaces, observation_space_central_agent, action_space_central_agent
 
-class CityLearn(gym.Env):  
+class CityLearn(core.EnvData):  
     def __init__(self, 
                 data_path, 
                 building_attributes, 
