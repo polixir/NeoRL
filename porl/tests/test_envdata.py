@@ -78,6 +78,12 @@ def test_ib():
     assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
 
 
+# def test_logistics_distribution():
+#     env = porl.make("logistics_distribution")
+#     train_data, val_data = env.get_dataset(train_num=99, data_type="l", path=TEST_DATA_PATH)
+#     assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
+
+
 def test_mujoco():
     env = porl.make("HalfCheetah-v3")
     train_data, val_data = env.get_dataset(train_num=99, data_type="L", path=TEST_DATA_PATH)

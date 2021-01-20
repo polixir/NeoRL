@@ -1,8 +1,8 @@
 import numbers
-
-import gym
 import numpy as np
 from gym import spaces
+from porl import core
+
 
 NORTH = 1
 EAST = 2
@@ -16,7 +16,7 @@ DIREC_DICT = {
 }
 
 
-class LogisticsDistributionEnv(gym.Env):
+class LogisticsDistributionEnv(core.EnvData):
     def __init__(self, length=100, grid=3, point_num=3, speed_max=5):
         self.LENGTH = length
         self.GRID = grid
@@ -50,7 +50,7 @@ class LogisticsDistributionEnv(gym.Env):
         self.direction = NORTH
         self.points = {}
 
-        # scatter citys
+        # scatter cities
         while len(self.points) < self.POINT_NUM:
             self.points[self._roll_a_point()] = 1
         self.unfinished = self.POINT_NUM
