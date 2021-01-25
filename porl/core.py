@@ -4,18 +4,20 @@ import urllib.request
 import json
 import numpy as np
 import re
+import porl
 
 
 OFFLINE_DATA_MAP = "https://polixir-ai.oss-cn-shanghai.aliyuncs.com/datasets/offline/data_map.json"
-DATA_PATH = "./data/"
+DATA_PATH = os.path.abspath(os.path.join(porl.__file__, "../", "data/"))
+LOCAL_JSON_FILE_PATH = os.path.abspath(os.path.join(porl.__file__, "../", "data_map.json"))
 
 
-def get_json(url):
+def get_json(file):
     """
-    Get json file from URL.
+    Get json from local file.
     """
-    resp = urllib.request.urlopen(url)
-    ele_json = json.loads(resp.read())
+    with open(file, 'r', encoding='utf8')as f:
+        ele_json = json.load(f)
     return ele_json
 
 
@@ -169,7 +171,7 @@ class EnvData(gym.Env):
 
         task_name_version = self._name if task_name_version is None else task_name_version
 
-        data_json = get_json(OFFLINE_DATA_MAP)
+        data_json = get_json(LOCAL_JSON_FILE_PATH)
 
         train_samples = sample_dataset(task_name_version, path, train_num, data_json, data_type, use_data_reward,
                                        self._reward_func, "train")

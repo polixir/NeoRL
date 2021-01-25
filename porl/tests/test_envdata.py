@@ -1,8 +1,9 @@
 import porl
 import sys
+from porl.core import DATA_PATH
 
 
-TEST_DATA_PATH = "../../data"
+TEST_DATA_PATH = DATA_PATH
 
 
 def test_citylearn():
