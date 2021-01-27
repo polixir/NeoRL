@@ -4,11 +4,11 @@ import os
 from setuptools import setup
 
 setup(
-    name='porl',
-    description="PORL is an open-source benchmark for offline reinforcement learning",
-    url="https://agit.ai/Polixir_AI/porl.git",
+    name='newrl',
+    description="newrl is NEar real-World benchmarks for offline Reinforcement Learning",
+    url="https://agit.ai/Polixir_AI/newrl.git",
     python_requires=">=3.7",
-    version='0.2.0',
+    version='0.3.0',
     install_requires=[
         'gym',
         'numpy',

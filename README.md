@@ -1,16 +1,16 @@
-# porl
+# newrl
 
-PORL is an open-source benchmark for offline reinforcement learning. It provides standardized 
-environments, datasets, and reward function for training and benchmarking algorithms.
+newrl is NEar real-World benchmarks for offline Reinforcement Learning. It provides standardized 
+environments, datasets, and reward functions for training and benchmarking algorithms.
 
 Currently, supported environments include CityLearn, FinRL, IB, and MuJoCo.
 
-## Install porl
+## Install newrl
 
-PORL can be installed as follows:
+newrl can be installed as follows:
 ```
-git clone https://agit.ai/Polixir_AI/porl.git
-cd porl
+git clone https://agit.ai/Polixir_AI/newrl.git
+cd newrl
 pip install -e .
 ```
 
@@ -26,9 +26,9 @@ So far "HalfCheetah-v3", "Walker2d-v3", and "Hopper-v3" are supported within MuJ
 ## Example
 
 ```
-import porl
+import newrl
 
-env = porl.make("citylearn")
+env = newrl.make("citylearn")
 train_data, val_data = env.get_dataset()  # Use default params here.
 ```
 
@@ -36,11 +36,11 @@ As a benchmark, in order to test algorithms conveniently and quickly, each task 
 a small training dataset and a validation dataset by default. They can be obtained by 
 `env.get_dataset()`. Meanwhile, for flexibility, extra parameters can be passed into `get_dataset()` 
 to get multiple pairs of datasets for benchmarking. 
-See [wiki](https://agit.ai/Polixir_AI/porl/wiki) for more details.
+See [wiki](https://agit.ai/Polixir_AI/newrl/wiki) for more details.
 
-## Data in porl
+## Data in newrl
 
-In PORL, training data and validation data returned by `get_dataset()` function are `dict` with 
+In newrl, training data and validation data returned by `get_dataset()` function are `dict` with 
 the same format:
 
 - `obs`: An <i> N by observation dimensional array </i> of current step's observation.
