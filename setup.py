@@ -6,7 +6,7 @@ from setuptools import setup
 setup(
     name='newrl',
     description="newrl is NEar real-World benchmarks for offline Reinforcement Learning",
-    url="https://agit.ai/Polixir_AI/newrl.git",
+    url="https://agit.ai/Polixir/newrl.git",
     python_requires=">=3.7",
     version='0.3.0',
     install_requires=[

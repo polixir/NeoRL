@@ -9,7 +9,7 @@ Currently, supported environments include CityLearn, FinRL, IB, and MuJoCo.
 
 newrl can be installed as follows:
 ```
-git clone https://agit.ai/Polixir_AI/newrl.git
+git clone https://agit.ai/Polixir/newrl.git
 cd newrl
 pip install -e .
 ```
@@ -36,7 +36,7 @@ As a benchmark, in order to test algorithms conveniently and quickly, each task 
 a small training dataset and a validation dataset by default. They can be obtained by 
 `env.get_dataset()`. Meanwhile, for flexibility, extra parameters can be passed into `get_dataset()` 
 to get multiple pairs of datasets for benchmarking. 
-See [wiki](https://agit.ai/Polixir_AI/newrl/wiki) for more details.
+See [wiki](https://agit.ai/Polixir/newrl/wiki) for more details.
 
 ## Data in newrl
 
