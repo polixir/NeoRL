@@ -4,6 +4,7 @@ import numpy as np
 import re
 import os
 import porl
+import hashlib
 
 
 OFFLINE_DATA_MAP = "https://polixir-ai.oss-cn-shanghai.aliyuncs.com/datasets/offline/data_map.json"
@@ -20,7 +21,21 @@ def get_json(file):
     return ele_json
 
 
-def download_dataset_from_url(dataset_url, name, to_path):
+def get_file_md5(filename):
+    if not os.path.isfile(filename):
+        return
+    my_hash = hashlib.md5()
+    f = open(filename, 'rb')
+    while True:
+        b = f.read(8096)
+        if not b:
+            break
+        my_hash.update(b)
+    f.close()
+    return my_hash.hexdigest()
+
+
+def download_dataset_from_url(dataset_url_md5, name, to_path):
     """
     Download dataset from url to `to_path + name`.
     """
@@ -31,16 +46,27 @@ def download_dataset_from_url(dataset_url, name, to_path):
     except Exception:
         pass
 
+    dataset_url = dataset_url_md5["url"]
+    dataset_md5 = dataset_url_md5["md5"]
+
     dataset_filepath = os.path.join(to_path, name)
+
+    if os.path.exists(dataset_filepath):
+        local_file_md5 = get_file_md5(dataset_filepath)
+        if local_file_md5 == dataset_md5:
+            return dataset_filepath
+        else:
+            print(f"Local dataset {name} is broken, ready to re-download.")
+
+    print(f'Downloading dataset: {dataset_url} to {dataset_filepath}')
+    urllib.request.urlretrieve(dataset_url, dataset_filepath)
+
     if not os.path.exists(dataset_filepath):
-        print('Downloading dataset:', dataset_url, 'to', dataset_filepath)
-        urllib.request.urlretrieve(dataset_url, dataset_filepath)
-    if not os.path.exists(dataset_filepath):
-        raise IOError("Failed to download dataset from %s" % dataset_url)
+        raise IOError(f"Failed to download dataset from {dataset_url}")
     return dataset_filepath
 
 
-def search_local_files(filename, data_type, train_or_val, path):
+def search_local_files(filename, data_type, train_or_val, path, data_json):
     """
     Search files containing both `filename` and `train_or_val` in `path`.
     If train_or_val is `train`, only search training data (file with string `train`), and so does `val`.
@@ -50,8 +76,16 @@ def search_local_files(filename, data_type, train_or_val, path):
     if os.path.exists(path):
         all_files = os.listdir(path)
         for f in all_files:
+            if f not in data_json.keys():
+                continue
             if filename in f and data_type in f and train_or_val in f:
-                files.append(f)
+                dataset_filepath = os.path.join(path, f)
+                local_file_md5 = get_file_md5(dataset_filepath)
+                dataset_md5 = data_json[f]["md5"]
+                if local_file_md5 == dataset_md5:
+                    files.append(f)
+                else:
+                    print(f"{f} is broken so that cannot partition from it.")
     return files
 
 
@@ -105,7 +139,7 @@ def sample_dataset(task_name_version, path, traj_num, data_json, data_type, use_
     Warp the procedure of finding appropriate least file, downloading file, sampling num trajs,
     and re-calc reward by customized reward_func (if needed).
     """
-    local_files = search_local_files(task_name_version, data_type, train_or_val, path)
+    local_files = search_local_files(task_name_version, data_type, train_or_val, path, data_json)
 
     if len(local_files) != 0:  # find dataset in local
         least_num = find_local_file(local_files, traj_num, train_or_val)
@@ -125,8 +159,8 @@ def sample_dataset(task_name_version, path, traj_num, data_json, data_type, use_
         if data_key in i:
             if_find_dataset = True
             try:
-                data_url = data_json[i]
-                data_path = download_dataset_from_url(data_url, name=i, to_path=path)
+                data_url_md5 = data_json[i]
+                data_path = download_dataset_from_url(data_url_md5, name=i, to_path=path)
                 data_npz = np.load(data_path)
                 data_dict = dict(data_npz)
                 data_dict["index"] = np.insert(data_dict["index"], 0, 0)
