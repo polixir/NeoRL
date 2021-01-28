@@ -1,21 +1,20 @@
 import importlib
-from newrl.newrl_envs.finance.finance_reward import get_reward
 
 
 def make(task: str, reward_func=None):
     try:    
         if task.startswith("ib"):
-            from newrl.newrl_envs.ib import ib_envs
+            from newrl.newrl_envs.ib import ib_envs, get_env
             assert task in ib_envs.keys()
-            env = ib_envs[task]
+            env = get_env(ib_envs[task])
         elif task == "citylearn":
-            from newrl.newrl_envs.citylearn import citylearn_envs
+            from newrl.newrl_envs.citylearn import citylearn_envs, get_env
             assert task in citylearn_envs.keys()
-            env = citylearn_envs[task] 
+            env = get_env(citylearn_envs[task]) 
         elif task == 'finance':
-            from newrl.newrl_envs.finance import finance_envs
+            from newrl.newrl_envs.finance import finance_envs, get_env
             assert task in finance_envs.keys()
-            env = finance_envs[task]
+            env = get_env(finance_envs[task])
         elif task == 'logistics_distribution':
             from newrl.newrl_envs.logistics_distribution import logistics_distribution_envs
             assert task in logistics_distribution_envs.keys()
@@ -31,7 +30,7 @@ def make(task: str, reward_func=None):
     except Exception as e:
         print(f'Warning: Env {task} can not be create. Pleace Check!')
         raise e
-
+    env.reset()
     env.set_name(task)
 
     try:
