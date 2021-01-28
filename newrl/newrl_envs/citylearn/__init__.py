@@ -1,8 +1,14 @@
 from newrl.newrl_envs.citylearn.citylearnenv import citylearn
 
-citylearn_v0 = citylearn()
+
+def get_env(env_name):
+    if env_name == "citylearn_v0":
+        env = citylearn()
+    
+    return env
+
 
 citylearn_envs = {
-        "citylearn": citylearn_v0,
-        "citylearn_v0": citylearn_v0,
+        "citylearn": "citylearn_v0",
+        "citylearn_v0": "citylearn_v0",
 }
