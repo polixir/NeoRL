@@ -1,20 +1,22 @@
-# newrl
+# NewRL
 
-newrl is NEar real-World benchmarks for offline Reinforcement Learning. It provides standardized 
-environments, datasets, and reward functions for training and benchmarking algorithms.
+This repository is the interface for the offline reinforcement learning benchmark NewRL: NEar real-World benchmarks.
 
-Currently, supported environments include CityLearn, FinRL, IB, and MuJoCo.
+The NewRL benchmarks contains environments, datasets, and reward functions for training and benchmarking offline reinforcement learning algorithms. Current benchmarks contains environments of CityLearn, FinRL, IB, and three MuJoCo tasks.
 
-## Install newrl
+More about the NewRL benchmarks can be found at http://polixir.ai/research/newrl and the following paper
+> Rongjun Qin, Songyi Gao, Xingyuan Zhang, Zhen Xu, Shengkai Huang, Zewen Li, Weinan Zhang, Yang Yu. Near Real-World Benchmarks for Offline Reinforcement Learning. https://arxiv.org/
 
-newrl can be installed as follows:
+## Install NewRL interface
+
+NewRL interface can be installed as follows:
 ```
 git clone https://agit.ai/Polixir/newrl.git
 cd newrl
 pip install -e .
 ```
 
-After installation, CityLearn, Finance, and industrial benchmark will be available. If you want 
+After installation, CityLearn, Finance, and the industrial benchmark will be available. If you want 
 to leverage MuJoCo in your tasks, it is necessary to obtain a [license](https://www.roboti.us/license.html) 
 and follow the setup instructions, and then run:
 ```
