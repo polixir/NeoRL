@@ -130,7 +130,7 @@ def sample_by_num(data_dict: dict, num: int):
         if k == "index":
             samples[k] = v[0: num]
         else:
-            samples[k] = v[0: num * (int(data_dict["index"][1]) - int(data_dict["index"][0]))]
+            samples[k] = v[0: int(data_dict["index"][num])]
     return samples
 
 
