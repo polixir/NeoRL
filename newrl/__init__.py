@@ -3,15 +3,15 @@ import importlib
 
 def make(task: str, reward_func=None):
     try:    
-        if task.startswith("ib"):
+        if task == "ib" or task == "Ib" or task == "industrial-benchmark" or task == "Industrial-Benchmark":
             from newrl.newrl_envs.ib import ib_envs, get_env
             assert task in ib_envs.keys()
             env = get_env(ib_envs[task])
-        elif task == "citylearn":
+        elif task == "citylearn" or task == "Citylearn":
             from newrl.newrl_envs.citylearn import citylearn_envs, get_env
             assert task in citylearn_envs.keys()
             env = get_env(citylearn_envs[task]) 
-        elif task == 'finance':
+        elif task == 'finance' or task == "Finance":
             from newrl.newrl_envs.finance import finance_envs, get_env
             assert task in finance_envs.keys()
             env = get_env(finance_envs[task])
@@ -22,9 +22,9 @@ def make(task: str, reward_func=None):
         elif task in ["HalfCheetah-v3", "Walker2d-v3", "Hopper-v3"]:
             from newrl.newrl_envs import mujoco
             env = mujoco.make_env(task)
-        elif task in ['halfcheetah-medium-v0', 'hopper-medium-v0', 'walker2d-medium-v0']:
-            from newrl.newrl_envs import d4rl
-            env = d4rl.make_env(task)
+        #elif task in ['halfcheetah-medium-v0', 'hopper-medium-v0', 'walker2d-medium-v0']:
+        #    from newrl.newrl_envs import d4rl
+        #    env = d4rl.make_env(task)
         else:
             raise ValueError(f'Env {task} is not supported!')
     except Exception as e:
