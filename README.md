@@ -40,7 +40,7 @@ a small training dataset and a validation dataset by default. They can be obtain
 to get multiple pairs of datasets for benchmarking. 
 See [wiki](https://agit.ai/Polixir/newrl/wiki) for more details.
 
-## Data in newrl
+## Data in NewRL
 
 In newrl, training data and validation data returned by `get_dataset()` function are `dict` with 
 the same format:
