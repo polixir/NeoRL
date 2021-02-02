@@ -275,7 +275,7 @@ class CityLearn(core.EnvData):
         self.central_agent = central_agent
         self.loss = []
         self.verbose = verbose
-        
+
         self.buildings, self.observation_spaces, self.action_spaces, self.observation_space, self.action_space = building_loader(data_path, building_attributes, weather_file, solar_profile, building_ids, self.buildings_states_actions)
         
         self.simulation_period_len = simulation_period_len
@@ -492,9 +492,54 @@ class CityLearn(core.EnvData):
     
     def reset_baseline_cost(self):
         self.cost_rbc = None
-        
+    
+
     def reset(self):
+        data_path = os.path.join(os.path.dirname(__file__),"data")
+        climate_zone = random.choice([1,2,3,4,5])
+        zone_data_path = os.path.join(data_path,"Climate_Zone_"+str(climate_zone))
+        building_attributes = os.path.join(zone_data_path, 'building_attributes.json')
+        weather_file = os.path.join(zone_data_path, 'weather_data.csv')
+        solar_profile = os.path.join(zone_data_path, 'solar_generation_1kW.csv')
+        buildings_states_actions = os.path.join(data_path,'buildings_state_action_space.json')
+        building_ids = ['Building_1','Building_2','Building_3','Building_4','Building_5','Building_6','Building_7','Building_8']
+        objective_function = ['ramping','1-load_factor','average_daily_peak','peak_demand','net_electricity_consumption','quadratic']
+        simulation_period_len = 1000
         
+        data_path = zone_data_path
+        
+        
+        with open(buildings_states_actions, "r") as json_file:
+            self.buildings_states_actions = json.load(json_file)
+        
+        self.buildings_states_actions_filename = buildings_states_actions
+        self.buildings_net_electricity_demand = []
+        self.building_attributes = building_attributes
+        self.solar_profile = solar_profile
+        self.building_ids = building_ids
+        self.cost_function = objective_function
+        self.cost_rbc = None
+        self.data_path = data_path
+        self.weather_file = weather_file
+        self.central_agent = True
+        self.loss = []
+        self.verbose = 0
+        simulation_period_total = (0,8759)
+
+        self.buildings, self.observation_spaces, self.action_spaces, self.observation_space, self.action_space = building_loader(data_path, building_attributes, weather_file, solar_profile, building_ids, self.buildings_states_actions)
+        
+        self.simulation_period_len = simulation_period_len
+        self.simulation_period_total = simulation_period_total
+        if self.simulation_period_len is None:
+            self.simulation_period = self.simulation_period_total
+        else:
+            start_index = random.randint(self.simulation_period_total[0],self.simulation_period_total[1]-self.simulation_period_len)
+            stop_index = start_index + self.simulation_period_len
+            self.simulation_period = (start_index, stop_index)
+        self.uid = None
+        self.n_buildings = len([i for i in self.buildings])
+ 
+
         #Initialization of variables
         if self.simulation_period_len is None:
             self.simulation_period = self.simulation_period_total
@@ -559,7 +604,7 @@ class CityLearn(core.EnvData):
             self.state = np.array(self.state)
             
         return self._get_ob()
-    
+
     def _get_ob(self):            
         return self.state
     
