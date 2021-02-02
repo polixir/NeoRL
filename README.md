@@ -64,7 +64,7 @@ In newrl, training data and validation data returned by `get_dataset()` function
 ## Reference
 
 - <b>CityLearn</b> <br>
-  [Vázquez-Canteli, José R., et al. "CityLearn v1.0: An OpenAI Gym Environment for Demand Response with Deep Reinforcement Learning", in Proceedings of the 6th ACM International Conference, ACM New York p. 356-357, New York, 2019] (https://dl.acm.org/doi/10.1145/3360322.3360998) <br>
+  [Vázquez-Canteli, José R., et al. "CityLearn v1.0: An OpenAI Gym Environment for Demand Response with Deep Reinforcement Learning", in Proceedings of the 6th ACM International Conference, ACM New York p. 356-357, New York, 2019](https://dl.acm.org/doi/10.1145/3360322.3360998) <br>
   Github: https://github.com/intelligent-environments-lab/CityLearn
 
 - <b>FinRL</b> <br>
