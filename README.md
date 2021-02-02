@@ -42,7 +42,7 @@ env.step(env.action_space.sample())
 train_data, val_data = env.get_dataset(data_type = "low", train_num = 99)  # Use default params here.
 ```
 
-As a benchmark, in order to test algorithms conveniently and quickly, each task is associated with a small training dataset and a validation dataset by default. They can be obtained by `env.get_dataset()`. Meanwhile, for flexibility, extra parameters can be passed into `get_dataset()` to get multiple pairs of datasets for benchmarking. See [wiki](https://agit.ai/Polixir_AI/newrl/wiki/core) for more details about the parameters .
+As a benchmark, in order to test algorithms conveniently and quickly, each task is associated with a small training dataset and a validation dataset by default. They can be obtained by `env.get_dataset()`. Meanwhile, for flexibility, extra parameters can be passed into `get_dataset()` to get multiple pairs of datasets for benchmarking. See [wiki](https://agit.ai/Polixir/newrl/wiki/core) for more details about the parameters .
 
 ## Data in NewRL
 
