@@ -38,11 +38,11 @@ env = newrl.make("citylearn")
 env.reset()
 env.step(env.action_space.sample())
 
-# Get the dataset
-train_data, val_data = env.get_dataset(data_type = "low", train_num = 99)  # Use default params here.
+# Get 99 trajectories of low level strategy collection on halfc tasks
+train_data, val_data = env.get_dataset(data_type = "low", train_num = 99)
 ```
 
-As a benchmark, in order to test algorithms conveniently and quickly, each task is associated with a small training dataset and a validation dataset by default. They can be obtained by `env.get_dataset()`. Meanwhile, for flexibility, extra parameters can be passed into `get_dataset()` to get multiple pairs of datasets for benchmarking. See [wiki](https://agit.ai/Polixir/newrl/wiki/core) for more details about the parameters .
+As a benchmark, in order to test algorithms conveniently and quickly, each task is associated with a small training dataset and a validation dataset by default. They can be obtained by `env.get_dataset()`. Meanwhile, for flexibility, extra parameters can be passed into `get_dataset()` to get multiple pairs of datasets for benchmarking. Each task collects data using a low, medium, and high level strategy; for each task, we provide training data for a maximum of 9999 trajectories. See [wiki](https://agit.ai/Polixir/newrl/wiki/core) for more details about the parameters .
 
 ## Data in NewRL
 
