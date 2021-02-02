@@ -6,7 +6,7 @@ The NewRL benchmarks contains environments, datasets, and reward functions for t
 
 More about the NewRL benchmarks can be found at http://polixir.ai/research/newrl and the following paper
 
-> Rongjun Qin, Songyi Gao, Xingyuan Zhang, Zhen Xu, Shengkai Huang, Zewen Li, Weinan Zhang, Yang Yu. Near Real-World Benchmarks for Offline Reinforcement Learning. https://arxiv.org/
+> Rongjun Qin, Songyi Gao, Xingyuan Zhang, Zhen Xu, Shengkai Huang, Zewen Li, Weinan Zhang, Yang Yu. Near Real-World Benchmarks for Offline Reinforcement Learning. https://arxiv.org/abs/2102.00714
 
 ## Install NewRL interface
 
