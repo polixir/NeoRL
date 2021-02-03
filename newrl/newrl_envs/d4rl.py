@@ -9,4 +9,3 @@ def make_env(task):
     env.set_name = env_data.set_name
     env.set_reward_func = env_data.set_reward_func
     return env
-
