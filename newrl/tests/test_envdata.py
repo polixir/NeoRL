@@ -1,6 +1,7 @@
 import newrl
 import sys
 from newrl.core import DATA_PATH
+import numpy as np
 
 
 TEST_DATA_PATH = DATA_PATH
@@ -65,6 +66,16 @@ def test_citylearn():
 
     train_data, val_data = env.get_dataset(train_num=TEST_NUM, val_ratio=0.3, path=TEST_DATA_PATH)
     assert int(len(train_data["index"]) * 0.3) == len(val_data["index"])
+
+    def customized_reward_func(data):
+        obs = data["obs"]
+        return np.ones((len(obs), 1))
+
+    env = newrl.make("ib", reward_func=customized_reward_func)
+    train_data, val_data = env.get_dataset(data_type="high", train_num=50, need_val=False, use_data_reward=False)
+    assert len(train_data["index"]) == 50
+    assert np.all(train_data["reward"] == np.ones_like(train_data["reward"]))
+    assert val_data is None
 
 
 def test_finance():
