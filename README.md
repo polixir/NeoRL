@@ -33,16 +33,21 @@ newrl uses the [OpenAI Gym](https://github.com/openai/gym) API. Tasks are create
 ```
 import newrl
 
-# Create the environment
+# Create an environment
 env = newrl.make("citylearn")
 env.reset()
 env.step(env.action_space.sample())
 
-# Get 99 trajectories of low level strategy collection on halfc tasks
+# Get 99 trajectories of low level policy collection on citylearn task
 train_data, val_data = env.get_dataset(data_type = "low", train_num = 99)
 ```
 
-As a benchmark, in order to test algorithms conveniently and quickly, each task is associated with a small training dataset and a validation dataset by default. They can be obtained by `env.get_dataset()`. Meanwhile, for flexibility, extra parameters can be passed into `get_dataset()` to get multiple pairs of datasets for benchmarking. Each task collects data using a low, medium, and high level strategy; for each task, we provide training data for a maximum of 9999 trajectories. See [wiki](https://agit.ai/Polixir/newrl/wiki/core) for more details about the parameters .
+As a benchmark, in order to test algorithms conveniently and quickly, each task is associated 
+with a small training dataset and a validation dataset by default. They can be obtained by 
+`env.get_dataset()`. Meanwhile, for flexibility, extra parameters can be passed into `get_dataset()` 
+to get multiple pairs of datasets for benchmarking. Each task collects data using a low, medium, 
+or high level policy; for each task, we provide training data for a maximum of 9999 trajectories. 
+See [wiki](https://agit.ai/Polixir/newrl/wiki/Parameter-usage) for more details about parameter usage.
 
 ## Data in NewRL
 
