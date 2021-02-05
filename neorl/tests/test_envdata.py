@@ -1,6 +1,6 @@
-import newrl
+import neorl
 import sys
-from newrl.core import DATA_PATH
+from neorl.core import DATA_PATH
 import numpy as np
 
 
@@ -8,7 +8,7 @@ TEST_DATA_PATH = DATA_PATH
 
 
 def test_citylearn():
-    env = newrl.make("citylearn")
+    env = neorl.make("citylearn")
     TEST_NUM = 9
     train_data, val_data = env.get_dataset(train_num=TEST_NUM, path=TEST_DATA_PATH)
     assert len(train_data["obs"]) == TEST_NUM * 1000
@@ -71,7 +71,7 @@ def test_citylearn():
         obs = data["obs"]
         return np.ones((len(obs), 1))
 
-    env = newrl.make("ib", reward_func=customized_reward_func)
+    env = neorl.make("ib", reward_func=customized_reward_func)
     train_data, val_data = env.get_dataset(data_type="high", train_num=50, need_val=False, use_data_reward=False)
     assert len(train_data["index"]) == 50
     assert np.all(train_data["reward"] == np.ones_like(train_data["reward"]))
@@ -79,31 +79,31 @@ def test_citylearn():
 
 
 def test_finance():
-    env = newrl.make("finance")
+    env = neorl.make("finance")
     train_data, val_data = env.get_dataset(train_num=99, data_type="H", path=TEST_DATA_PATH)
     assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
 
 
 def test_ib():
-    env = newrl.make("ib")
+    env = neorl.make("ib")
     train_data, val_data = env.get_dataset(train_num=99, data_type="M", path=TEST_DATA_PATH)
     assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
 
 
 # def test_logistics_distribution():
-#     env = newrl.make("logistics_distribution")
+#     env = neorl.make("logistics_distribution")
 #     train_data, val_data = env.get_dataset(train_num=99, data_type="l", path=TEST_DATA_PATH)
 #     assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
 
 
 def test_mujoco():
-    env = newrl.make("HalfCheetah-v3")
+    env = neorl.make("HalfCheetah-v3")
     train_data, val_data = env.get_dataset(train_num=99, data_type="L", path=TEST_DATA_PATH)
     assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
-    env = newrl.make("Walker2d-v3")
+    env = neorl.make("Walker2d-v3")
     train_data, val_data = env.get_dataset(train_num=9, data_type="m", path=TEST_DATA_PATH)
     assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
-    env = newrl.make("Hopper-v3")
+    env = neorl.make("Hopper-v3")
     train_data, val_data = env.get_dataset(train_num=0, data_type="e", path=TEST_DATA_PATH)
     assert int(len(train_data["index"]) * 0.1) == 0 and len(val_data["index"]) == 0
 

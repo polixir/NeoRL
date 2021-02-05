@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-from newrl.newrl_envs.logistics_distribution.ld_env import NORTH, EAST, SOUTH, WEST
+from neorl.neorl_envs.logistics_distribution.ld_env import NORTH, EAST, SOUTH, WEST
 
 
 def get_reward(data):

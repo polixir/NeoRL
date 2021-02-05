@@ -1,4 +1,4 @@
-from newrl.newrl_envs.finance.finrl import create_env
+from neorl.neorl_envs.finance.finrl import create_env
 
 def get_env(env_name):
     if env_name == "finance_v0":

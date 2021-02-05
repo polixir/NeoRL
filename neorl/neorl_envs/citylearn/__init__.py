@@ -1,4 +1,4 @@
-from newrl.newrl_envs.citylearn.citylearnenv import citylearn
+from neorl.neorl_envs.citylearn.citylearnenv import citylearn
 
 
 def get_env(env_name):

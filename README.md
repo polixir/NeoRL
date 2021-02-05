@@ -1,20 +1,20 @@
-# NewRL
+# NeoRL
 
-This repository is the interface for the offline reinforcement learning benchmark NewRL: NEar real-World benchmarks.
+This repository is the interface for the offline reinforcement learning benchmark NeoRL: NEar real-World benchmarks.
 
-The NewRL benchmarks contains environments, datasets, and reward functions for training and benchmarking offline reinforcement learning algorithms. Current benchmarks contains environments of CityLearn, FinRL, IB, and three MuJoCo tasks.
+The NeoRL benchmarks contains environments, datasets, and reward functions for training and benchmarking offline reinforcement learning algorithms. Current benchmarks contains environments of CityLearn, FinRL, IB, and three MuJoCo tasks.
 
-More about the NewRL benchmarks can be found at http://polixir.ai/research/newrl and the following paper
+More about the NeoRL benchmarks can be found at http://polixir.ai/research/neorl and the following paper
 
 > Rongjun Qin, Songyi Gao, Xingyuan Zhang, Zhen Xu, Shengkai Huang, Zewen Li, Weinan Zhang, Yang Yu. Near Real-World Benchmarks for Offline Reinforcement Learning. https://arxiv.org/abs/2102.00714
 
-## Install NewRL interface
+## Install NeoRL interface
 
-NewRL interface can be installed as follows:
+NeoRL interface can be installed as follows:
 
 ```
-git clone https://agit.ai/Polixir/newrl.git
-cd newrl
+git clone https://agit.ai/Polixir/neorl.git
+cd neorl
 pip install -e .
 ```
 
@@ -26,15 +26,15 @@ pip install -e .[mujoco]
 
 So far "HalfCheetah-v3", "Walker2d-v3", and "Hopper-v3" are supported within MuJoCo.
 
-## Using NewRL
+## Using NeoRL
 
-newrl uses the [OpenAI Gym](https://github.com/openai/gym) API. Tasks are created via the `newrl.make` function. A full list of all tasks is [available here](https://agit.ai/Polixir/newrl/wiki/Tasks).
+NeoRL uses the [OpenAI Gym](https://github.com/openai/gym) API. Tasks are created via the `neorl.make` function. A full list of all tasks is [available here](https://agit.ai/Polixir/neorl/wiki/Tasks).
 
 ```
-import newrl
+import neorl
 
 # Create an environment
-env = newrl.make("citylearn")
+env = neorl.make("citylearn")
 env.reset()
 env.step(env.action_space.sample())
 
@@ -47,11 +47,11 @@ with a small training dataset and a validation dataset by default. They can be o
 `env.get_dataset()`. Meanwhile, for flexibility, extra parameters can be passed into `get_dataset()` 
 to get multiple pairs of datasets for benchmarking. Each task collects data using a low, medium, 
 or high level policy; for each task, we provide training data for a maximum of 9999 trajectories. 
-See [wiki](https://agit.ai/Polixir/newrl/wiki/Parameter-usage) for more details about parameter usage.
+See [wiki](https://agit.ai/Polixir/neorl/wiki/Parameter-usage) for more details about parameter usage.
 
-## Data in NewRL
+## Data in NeoRL
 
-In newrl, training data and validation data returned by `get_dataset()` function are `dict` with  the same format:
+In NeoRL, training data and validation data returned by `get_dataset()` function are `dict` with  the same format:
 
 - `obs`: An <i> N by observation dimensional array </i> of current step's observation.
 

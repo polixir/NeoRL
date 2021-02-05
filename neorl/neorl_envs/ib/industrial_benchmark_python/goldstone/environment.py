@@ -26,7 +26,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
 
-from newrl.newrl_envs.ib.industrial_benchmark_python.goldstone.dynamics import dynamics
+from neorl.neorl_envs.ib.industrial_benchmark_python.goldstone.dynamics import dynamics
 
 class environment:
     def __init__(self, number_steps, max_required_step, safe_zone):

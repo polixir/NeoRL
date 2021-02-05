@@ -1,4 +1,4 @@
-from newrl import core
+from neorl import core
 import gym
 import os
 from gym.utils import seeding
@@ -7,8 +7,8 @@ import pandas as pd
 import random
 import json
 from gym import spaces
-from newrl.newrl_envs.citylearn.energy_models import HeatPump, ElectricHeater, EnergyStorage, Building
-from newrl.newrl_envs.citylearn.reward_function import reward_function_sa, reward_function_ma
+from neorl.neorl_envs.citylearn.energy_models import HeatPump, ElectricHeater, EnergyStorage, Building
+from neorl.neorl_envs.citylearn.reward_function import reward_function_sa, reward_function_ma
 
 gym.logger.set_level(40)
 

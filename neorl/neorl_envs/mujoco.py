@@ -1,5 +1,5 @@
 import gym
-from newrl import core
+from neorl import core
 
 
 def make_env(task):

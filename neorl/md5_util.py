@@ -1,4 +1,4 @@
-from newrl.utils import get_json, LOCAL_JSON_FILE_PATH, DATA_PATH, download_dataset_from_url, get_file_md5
+from neorl.utils import get_json, LOCAL_JSON_FILE_PATH, DATA_PATH, download_dataset_from_url, get_file_md5
 
 
 def print_all_kv_with_md5(json_file):

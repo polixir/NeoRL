@@ -3,13 +3,13 @@ import json
 import numpy as np
 import re
 import os
-import newrl
+import neorl
 import hashlib
 
 
 OFFLINE_DATA_MAP = "https://polixir-ai.oss-cn-shanghai.aliyuncs.com/datasets/offline/data_map.json"
-DATA_PATH = os.path.abspath(os.path.join(newrl.__file__, "../", "data/"))
-LOCAL_JSON_FILE_PATH = os.path.abspath(os.path.join(newrl.__file__, "../", "data_map.json"))
+DATA_PATH = os.path.abspath(os.path.join(neorl.__file__, "../", "data/"))
+LOCAL_JSON_FILE_PATH = os.path.abspath(os.path.join(neorl.__file__, "../", "data_map.json"))
 
 
 def get_json(file):
