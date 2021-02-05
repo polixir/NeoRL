@@ -1,7 +1,7 @@
 import numbers
 import numpy as np
 from gym import spaces
-from newrl import core
+from neorl import core
 
 
 NORTH = 1

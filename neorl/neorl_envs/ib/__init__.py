@@ -1,4 +1,4 @@
-from newrl.newrl_envs.ib.industrial_benchmark_python.IBGym import IBGym
+from neorl.neorl_envs.ib.industrial_benchmark_python.IBGym import IBGym
 
 def get_env(env_name):
     if env_name == "ib_continuous_v0":

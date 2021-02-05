@@ -4,7 +4,7 @@ import os
 import numpy as np
 import torch
 from tqdm import tqdm
-from newrl.newrl_envs.logistics_distribution.ld_env import LogisticsDistributionEnv
+from neorl.neorl_envs.logistics_distribution.ld_env import LogisticsDistributionEnv
 
 
 log_path = 'log/tsp-v0/dqn/'

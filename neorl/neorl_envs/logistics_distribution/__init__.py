@@ -1,4 +1,4 @@
-from newrl.newrl_envs.logistics_distribution.ld_env import create_env
+from neorl.neorl_envs.logistics_distribution.ld_env import create_env
 
 ld_v0 = create_env()
 
