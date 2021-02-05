@@ -2,7 +2,7 @@
 from __future__ import division
 import numpy as np
 from numpy import pi, sin, sign
-from porl.porl_envs.ib.industrial_benchmark_python.goldstone.nlgp import nlgp
+from newrl.newrl_envs.ib.industrial_benchmark_python.goldstone.nlgp import nlgp
 '''
 The MIT License (MIT)
 

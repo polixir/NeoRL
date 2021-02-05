@@ -1,5 +1,5 @@
 # https://github.com/AI4Finance-LLC/FinRL-Library
-from porl.porl_envs import core
+from newrl import core
 import os
 import numpy as np
 import pandas as pd
@@ -156,6 +156,7 @@ class StockEnvTrain(core.EnvData):
         self._seed()
 
 
+
     def _sell_stock(self, index, action):
         # perform sell action based on the sign of the action
         if self.state[index+self.stock_dim+1] > 0:
@@ -193,32 +194,6 @@ class StockEnvTrain(core.EnvData):
         # print(actions)
 
         if self.terminal:
-            #plt.plot(self.asset_memory,'r')
-            #plt.savefig('results/account_value_train.png')
-            #plt.close()
-            end_total_asset = self.state[0]+ \
-                sum(np.array(self.state[1:(self.stock_dim+1)])*np.array(self.state[(self.stock_dim+1):(self.stock_dim*2+1)]))
-
-            #print("begin_total_asset:{}".format(self.asset_memory[0]))           
-            #print("end_total_asset:{}".format(end_total_asset))
-            df_total_value = pd.DataFrame(self.asset_memory)
-            #df_total_value.to_csv('results/account_value_train.csv')
-            #print("total_reward:{}".format(self.state[0]+sum(np.array(self.state[1:(self.stock_dim+1)])*np.array(self.state[(self.stock_dim+1):(self.stock_dim*2+1)]))- self.initial_amount ))
-            #print("total_cost: ", self.cost)
-            #print("total_trades: ", self.trades)
-            df_total_value.columns = ['account_value']
-            df_total_value['daily_return']=df_total_value.pct_change(1)
-            sharpe = (252**0.5)*df_total_value['daily_return'].mean()/ \
-                  df_total_value['daily_return'].std()
-            #print("Sharpe: ",sharpe)
-            #print("=================================")
-            df_rewards = pd.DataFrame(self.rewards_memory)
-            #df_rewards.to_csv('results/account_rewards_train.csv')
-            
-            # print('total asset: {}'.format(self.state[0]+ sum(np.array(self.state[1:29])*np.array(self.state[29:]))))
-            #with open('obs.pkl', 'wb') as f:  
-            #    pickle.dump(self.state, f)
-            
             return self.state, self.reward, self.terminal,{}
 
         else:
@@ -402,33 +377,7 @@ class StockEnvTrade(core.EnvData):
         self.terminal = self.day >= len(self.df.index.unique())-1
         # print(actions)
 
-        if self.terminal:
-            plt.plot(self.asset_memory,'r')
-            plt.savefig('results/account_value_trade_{}.png'.format(self.iteration))
-            plt.close()
-
-            df_total_value = pd.DataFrame(self.asset_memory)
-            #df_total_value.to_csv('results/account_value_trade_{}.csv'.format(self.iteration))
-            end_total_asset = self.state[0]+ \
-            sum(np.array(self.state[1:(self.stock_dim+1)])*np.array(self.state[(self.stock_dim+1):(self.stock_dim*2+1)]))
-            #print("previous_total_asset:{}".format(self.asset_memory[0]))           
-
-            #print("end_total_asset:{}".format(end_total_asset))
-            #print("total_reward:{}".format(self.state[0]+sum(np.array(self.state[1:(self.stock_dim+1)])*np.array(self.state[(self.stock_dim+1):(self.stock_dim+1)]))- self.asset_memory[0] ))
-            #print("total_cost: ", self.cost)
-            #print("total trades: ", self.trades)
-
-            df_total_value.columns = ['account_value']
-            df_total_value['daily_return']=df_total_value.pct_change(1)
-            sharpe = (252**0.5)*df_total_value['daily_return'].mean()/ \
-                  df_total_value['daily_return'].std()
-            #print("Sharpe: ",sharpe)
-            
-            #df_rewards = pd.DataFrame(self.rewards_memory)
-            #df_rewards.to_csv('results/account_rewards_trade_{}.csv'.format(self.iteration))
-            
-            # print('total asset: {}'.format(self.state[0]+ sum(np.array(self.state[1:29])*np.array(self.state[29:]))))
-            
+        if self.terminal:            
             return self.state, self.reward, self.terminal,{}
 
         else:

@@ -1,7 +1,7 @@
 # coding: utf8
 import numpy as np
 from numpy import pi, sign
-from porl.porl_envs.ib.industrial_benchmark_python.goldstone import reward_function
+from newrl.newrl_envs.ib.industrial_benchmark_python.goldstone import reward_function
 from enum import Enum
 '''
 The MIT License (MIT)

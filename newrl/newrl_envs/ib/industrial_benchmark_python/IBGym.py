@@ -24,12 +24,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from porl.porl_envs import core
+from newrl import core
 import gym
 import numpy as np
 from collections import OrderedDict
 
-from porl.porl_envs.ib.industrial_benchmark_python.IDS import IDS
+from newrl.newrl_envs.ib.industrial_benchmark_python.IDS import IDS
 
 
 class IBGym(core.EnvData):

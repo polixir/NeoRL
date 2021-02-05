@@ -1,8 +1,8 @@
 # coding=utf-8
 from __future__ import division
 import numpy as np
-from porl.porl_envs.ib.industrial_benchmark_python.goldstone.environment import environment as GoldstoneEnvironment
-from porl.porl_envs.ib.industrial_benchmark_python.EffectiveAction import EffectiveAction
+from newrl.newrl_envs.ib.industrial_benchmark_python.goldstone.environment import environment as GoldstoneEnvironment
+from newrl.newrl_envs.ib.industrial_benchmark_python.EffectiveAction import EffectiveAction
 from collections import OrderedDict
 '''
 The MIT License (MIT)

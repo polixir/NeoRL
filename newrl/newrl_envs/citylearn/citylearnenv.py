@@ -2,7 +2,7 @@ import os
 import gym
 import random
 import numpy as np
-from porl.porl_envs.citylearn.citylearn import CityLearn
+from newrl.newrl_envs.citylearn.citylearn import CityLearn
 import matplotlib.pyplot as plt
 from pathlib import Path
 import time

@@ -4,22 +4,24 @@ import os
 from setuptools import setup
 
 setup(
-    name='porl',
-    description="PORL is an open-source benchmark for offline reinforcement learning",
-    url="https://agit.ai/Polixir_AI/porl.git",
+    name='newrl',
+    description="newrl is NEar real-World benchmarks for offline Reinforcement Learning",
+    url="https://agit.ai/Polixir/newrl.git",
     python_requires=">=3.7",
-    version='0.1.0',
+    version='0.3.0',
     install_requires=[
         'gym',
         'numpy',
         'pygame',
         'attrdict',
-        'mujoco-py',
         'ray[tune]',
         'dm_tree',
         'pandas',
         'opencv_python',
-        'torch'
-    ]
-    
+        'torch',
+        'tqdm',
+    ],
+    extras_require={
+        'mujoco': ['mujoco-py']
+    }
 )
