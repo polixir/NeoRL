@@ -1,6 +1,6 @@
 # NeoRL
 
-This repository is the interface for the offline reinforcement learning benchmark NeoRL: NEar real-World benchmarks.
+This repository is the interface for the offline reinforcement learning benchmark NeoRL: NEar real-world benchmarks for Offline Reinforcement Learning.
 
 The NeoRL benchmarks contains environments, datasets, and reward functions for training and benchmarking offline reinforcement learning algorithms. Current benchmarks contains environments of CityLearn, FinRL, IB, and three MuJoCo tasks.
 
