@@ -70,18 +70,8 @@ In NeoRL, training data and validation data returned by `get_dataset()` function
 
 ## Reference
 
-- <b>CityLearn</b> <br>
-  [Vázquez-Canteli, José R., et al. "CityLearn v1.0: An OpenAI Gym Environment for Demand Response with Deep Reinforcement Learning", in Proceedings of the 6th ACM International Conference, ACM New York p. 356-357, New York, 2019](https://dl.acm.org/doi/10.1145/3360322.3360998) <br>
-  Github: https://github.com/intelligent-environments-lab/CityLearn
 
-- <b>FinRL</b> <br>
-  [Liu X Y, Yang H, Chen Q, et al. "FinRL: A Deep Reinforcement Learning Library for Automated Stock Trading in Quantitative Finance", arXiv preprint arXiv:2011.09607, 2020](https://arxiv.org/abs/2011.09607) <br>
-  Github: https://github.com/AI4Finance-LLC/FinRL-Library
-
-- <b>industrial benchmark</b> <br>
-  [D. Hein, S. Depeweg, et al. "A benchmark environment motivated by industrial control problems", in Proceedings of the 2017 IEEE Symposium Series on Computational Intelligence, 2017, pp. 1-8](https://arxiv.org/abs/1709.09480) <br>
-  Github: https://github.com/siemens/industrialbenchmark
-
-- <b>MuJoCo</b> <br>
-  [Todorov E, Erez T, Tassa Y. "Mujoco: A physics engine for model-based control", in Proceedings of the 2012 IEEE/RSJ International Conference on Intelligent Robots and Systems, 2012, pp. 5026-5033](https://ieeexplore.ieee.org/abstract/document/6386109) <br>
-  MuJoCo: https://gym.openai.com/envs/#mujoco
+- **CityLearn**: Vázquez-Canteli, José R., et al. "CityLearn v1.0: An OpenAI Gym Environment for Demand Response with Deep Reinforcement Learning", in Proceedings of the 6th ACM International Conference, ACM New York p. 356-357, New York, 2019. [paper](https://dl.acm.org/doi/10.1145/3360322.3360998) [code](https://github.com/intelligent-environments-lab/CityLearn)
+- **FinRL**: Liu X Y, Yang H, Chen Q, et al. "FinRL: A Deep Reinforcement Learning Library for Automated Stock Trading in Quantitative Finance", arXiv preprint arXiv:2011.09607, 2020. [paper](https://arxiv.org/abs/2011.09607) [code](https://github.com/AI4Finance-LLC/FinRL-Library)
+- **Industrial Benchmark**: D. Hein, S. Depeweg, et al. "A benchmark environment motivated by industrial control problems", in Proceedings of the 2017 IEEE Symposium Series on Computational Intelligence, pp. 1-8, 2017. [paper](https://arxiv.org/abs/1709.09480) [code](https://github.com/siemens/industrialbenchmark)
+- **MuJoCo**: Todorov E, Erez T, Tassa Y. "Mujoco: A physics engine for model-based control", in Proceedings of the 2012 IEEE/RSJ International Conference on Intelligent Robots and Systems, pp. 5026-5033, 2012. [paper](https://ieeexplore.ieee.org/abstract/document/6386109) [website](https://gym.openai.com/envs/#mujoco)
