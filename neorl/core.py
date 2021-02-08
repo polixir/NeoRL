@@ -57,6 +57,12 @@ class EnvData(gym.Env):
         """
         self._reward_func = reward_func
 
+    def get_reward_func(self):
+        """
+        Users can call this func to set customized reward.
+        """
+        return self._reward_func
+
     def set_name(self, name):
         """
         Set name for envs.
