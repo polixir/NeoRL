@@ -5,17 +5,20 @@ def make(task: str, reward_func=None):
     try:    
         if task == "ib" or task == "Ib" or task == "industrial-benchmark" or task == "Industrial-Benchmark":
             from neorl.neorl_envs.ib import ib_envs, get_env
+            task = "ib"
             assert task in ib_envs.keys()
             env = get_env(ib_envs[task])
         elif task == "citylearn" or task == "Citylearn":
             from neorl.neorl_envs.citylearn import citylearn_envs, get_env
+            task = "citylearn"
             assert task in citylearn_envs.keys()
             env = get_env(citylearn_envs[task]) 
-        elif task == 'finance' or task == "Finance":
+        elif task == "finance" or task == "Finance":
             from neorl.neorl_envs.finance import finance_envs, get_env
+            task = "finance"
             assert task in finance_envs.keys()
             env = get_env(finance_envs[task])
-        elif task == 'logistics_distribution':
+        elif task == "logistics_distribution":
             from neorl.neorl_envs.logistics_distribution import logistics_distribution_envs
             assert task in logistics_distribution_envs.keys()
             env = logistics_distribution_envs[task]
