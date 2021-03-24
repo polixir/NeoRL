@@ -9,4 +9,8 @@ def make_env(task):
     env.get_dataset = env_data.get_dataset
     env.set_reward_func = env_data.set_reward_func
     env.get_reward_func = env_data.get_reward_func
+    env.set_done_func = env_data.set_done_func
+    env.get_done_func = env_data.get_done_func
+    
+    
     return env

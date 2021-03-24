@@ -68,3 +68,16 @@ class EnvData(gym.Env):
         Set name for envs.
         """
         self._name = name
+        
+        
+    def set_done_func(self, done_func):
+        """
+        Users can call this func to check if the env is done.
+        """
+        self._done_func = done_func
+
+    def get_done_func(self):
+        """
+        Users can call this func to check if the env is done.
+        """
+        return self._done_func
