@@ -38,8 +38,8 @@ env = neorl.make("citylearn")
 env.reset()
 env.step(env.action_space.sample())
 
-# Get 99 trajectories of low level policy collection on citylearn task
-train_data, val_data = env.get_dataset(data_type = "low", train_num = 99)
+# Get 100 trajectories of low level policy collection on citylearn task
+train_data, val_data = env.get_dataset(data_type = "low", train_num = 100)
 ```
 
 To facilitate setting different goals, users can provide custom reward function to `neorl.make()` while creating an env. See [usage and examples of `neorl.make()`](https://agit.ai/Polixir/neorl/wiki/Parameter-usage#user-content-usage-of-neorl-make) for more details.
@@ -48,7 +48,7 @@ As a benchmark, in order to test algorithms conveniently and quickly, each task 
 with a small training dataset and a validation dataset by default. They can be obtained by 
 `env.get_dataset()`. Meanwhile, for flexibility, extra parameters can be passed into `get_dataset()` 
 to get multiple pairs of datasets for benchmarking. Each task collects data using a low, medium, 
-or high level policy; for each task, we provide training data for a maximum of 9999 trajectories. 
+or high level policy; for each task, we provide training data for a maximum of 10000 trajectories. 
 See [usage of `get_dataset()`](https://agit.ai/Polixir/neorl/wiki/Parameter-usage#user-content-usage-of-get-dataset) for more details about parameter usage.
 
 ## Data in NeoRL

@@ -3,7 +3,7 @@ from .utils import get_json, sample_dataset, LOCAL_JSON_FILE_PATH, DATA_PATH
 
 
 class EnvData(gym.Env):
-    def get_dataset(self, task_name_version: str = None, data_type: str = "high", train_num: int = 99,
+    def get_dataset(self, task_name_version: str = None, data_type: str = "high", train_num: int = 100,
                     need_val: bool = True, val_ratio: float = 0.1, path: str = DATA_PATH, use_data_reward: bool = True):
         """
         Get dataset from given env.
@@ -13,7 +13,7 @@ class EnvData(gym.Env):
         :param data_type: Which type of policy is used to collect data. It should
             be one of ["high", "medium", "low"], default to `high`
         :param train_num: The num of trajectory of training data. Note that the num
-            should be less than 10,000, default to `99`
+            should be less than 10,000, default to `100`
         :param need_val: Whether needs to download validation data, default to `True`
         :param val_ratio: The ratio of validation data to training data, default to `0.1`
         :param path: The directory of data to load from or download to `./data/`
@@ -53,13 +53,13 @@ class EnvData(gym.Env):
 
     def set_reward_func(self, reward_func):
         """
-        Users can call this func to set customized reward.
+        Users can call this func to set customized reward func.
         """
         self._reward_func = reward_func
 
     def get_reward_func(self):
         """
-        Users can call this func to set customized reward.
+        Users can call this func to get customized reward func.
         """
         return self._reward_func
 
@@ -69,15 +69,14 @@ class EnvData(gym.Env):
         """
         self._name = name
         
-        
     def set_done_func(self, done_func):
         """
-        Users can call this func to check if the env is done.
+        Users can call this func to set done func.
         """
         self._done_func = done_func
 
     def get_done_func(self):
         """
-        Users can call this func to check if the env is done.
+        Users can call this func to get done func.
         """
         return self._done_func
