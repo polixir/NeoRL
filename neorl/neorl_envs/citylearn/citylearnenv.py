@@ -1,11 +1,6 @@
 import os
-import gym
 import random
-import numpy as np
 from neorl.neorl_envs.citylearn.citylearn import CityLearn
-import matplotlib.pyplot as plt
-from pathlib import Path
-import time
 
 
 def citylearn():
