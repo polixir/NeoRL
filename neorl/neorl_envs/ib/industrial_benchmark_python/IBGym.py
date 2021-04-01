@@ -29,7 +29,7 @@ import gym
 import numpy as np
 from collections import OrderedDict
 
-from industrial_benchmark_python.IDS import IDS
+from neorl.neorl_envs.ib.industrial_benchmark_python.IDS import IDS
 
 
 class IBGym(core.EnvData):
