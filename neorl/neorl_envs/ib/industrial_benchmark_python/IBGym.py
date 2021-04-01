@@ -29,7 +29,7 @@ import gym
 import numpy as np
 from collections import OrderedDict
 
-from neorl.neorl_envs.ib.industrial_benchmark_python.IDS import IDS
+from industrial_benchmark_python.IDS import IDS
 
 
 class IBGym(core.EnvData):
@@ -37,7 +37,7 @@ class IBGym(core.EnvData):
     OpenAI Gym Wrapper for the industrial benchmark
     """
     def __init__(self, setpoint, reward_type, action_type, observation_type="classic", reset_after_timesteps=1000,
-                 obs_reward=True, init_seed=None, n_past_timesteps=30):
+                 init_seed=None, n_past_timesteps=30):
         """
         Initializes the underlying environment, seeds numpy and initializes action / observation spaces
         as well as other necessary variables
@@ -46,7 +46,6 @@ class IBGym(core.EnvData):
         :param action_type: discrete / continuous
         :param observation_type: classic / include_past - determines wether single or N state frames used as observation
         :param reset_after_timesteps: how many timesteps can the environment run without resetting
-        :param obs_reward: add fatigue and consumption to observation for reward caculation
         :param init_seed: seed for numpy to make environment behavior reproducible
         :param n_past_timesteps: if observation type is include_past, this determines how many state frames are used
         """
@@ -60,7 +59,6 @@ class IBGym(core.EnvData):
 
         # Used to determine whether to return the absolute value or the relative change in the cost function
         self.reward_function = reward_type
-        self.obs_reward = obs_reward
 
         # Used to set an arbitrary limit of how many time steps the environment can take before resetting
         self.reset_after_timesteps = reset_after_timesteps
@@ -105,14 +103,9 @@ class IBGym(core.EnvData):
         if self.observation_type == "classic":  # classic only has the current state frame
             self.observation_space = gym.spaces.Box(low=single_low, high=single_high)
 
-        elif self.observation_type == "include_past":  # time embedding: state contains also past N state frames            
-            if self.obs_reward:
-                low = np.hstack([single_low] * self.n_past_timesteps + [-100, -100])
-                high = np.hstack([single_high] * self.n_past_timesteps + [100, 100])   
-            else:
-                low = np.hstack([single_low] * self.n_past_timesteps)
-                high = np.hstack([single_high] * self.n_past_timesteps)
-                
+        elif self.observation_type == "include_past":  # time embedding: state contains also past N state frames
+            low = np.hstack([single_low] * self.n_past_timesteps)
+            high = np.hstack([single_high] * self.n_past_timesteps)
             self.observation_space = gym.spaces.Box(low=low, high=high)
 
         else:
@@ -168,10 +161,6 @@ class IBGym(core.EnvData):
                              ' or "delta" for the change in the cost fucntion between steps.')
 
         self.info = self._markovian_state()  # entire markov state - not all info is visible in observations
-        
-        if self.obs_reward:
-            return_reward = self.get_reward_from_data(return_observation,action,return_observation)
-        
         return return_observation, return_reward, self.done, self.info
 
     def reset(self):
@@ -253,12 +242,6 @@ class IBGym(core.EnvData):
         else:
             raise ValueError('Invalid observation_type. observation_type can either be "classic" or "include_past"')
 
-        if self.obs_reward:
-            fatigue = np.array([self.IB.state['f']])
-            consumption = np.array([self.IB.state['c']])
-
-            return_observation = np.concatenate([return_observation,fatigue,consumption], axis=-1)
-
         return return_observation
 
     def _markovian_state(self):
@@ -295,28 +278,3 @@ class IBGym(core.EnvData):
 
         info = OrderedDict(zip(markovian_states_variables, markovian_states_values))
         return info
-    
-    def get_reward_from_data(self, obs, action, obs_next):
-        singel_reward = False
-        if len(obs.shape) == 1:
-            singel_reward = True
-            obs = obs.reshape(1,-1)
-        if len(action.shape) == 1:
-            action = action.reshape(1,-1)
-        if len(obs_next.shape) == 1:
-            obs_next = obs_next.reshape(1,-1)
-
-        CRF = self.IB.CRF
-        CRC = self.IB.CRC
-
-        fatigue = obs_next[:,-2]
-        consumption = obs_next[:,-1]
-
-        cost = CRF * fatigue + CRC * consumption
-
-        reward = -cost
-        
-        if singel_reward:
-            reward = reward[0].item()
-
-        return reward
