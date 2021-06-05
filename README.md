@@ -1,12 +1,14 @@
 # NeoRL
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://licensebuttons.net/l/by/3.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
 
-This repository is the interface for the offline reinforcement learning benchmark NeoRL: NEar real-world benchmarks for Offline Reinforcement Learning.
+This repository is the interface for the offline reinforcement learning benchmark NeoRL: A Near Real-World Benchmark for Offline Reinforcement Learning.
 
 The NeoRL benchmarks contains environments, datasets, and reward functions for training and benchmarking offline reinforcement learning algorithms. Current benchmarks contains environments of CityLearn, FinRL, IB, and three MuJoCo tasks.
 
 More about the NeoRL benchmarks can be found at http://polixir.ai/research/neorl and the following paper
 
-> Rongjun Qin, Songyi Gao, Xingyuan Zhang, Zhen Xu, Shengkai Huang, Zewen Li, Weinan Zhang, Yang Yu. Near Real-World Benchmarks for Offline Reinforcement Learning. https://arxiv.org/abs/2102.00714
+> Rongjun Qin, Songyi Gao, Xingyuan Zhang, Zhen Xu, Shengkai Huang, Zewen Li, Weinan Zhang, Yang Yu. NeoRL: A Near Real-World Benchmark for Offline Reinforcement Learning. https://arxiv.org/abs/2102.00714
 
 ## Install NeoRL interface
 
@@ -75,3 +77,6 @@ In NeoRL, training data and validation data returned by `get_dataset()` function
 - **FinRL**: Liu X Y, Yang H, Chen Q, et al. "FinRL: A Deep Reinforcement Learning Library for Automated Stock Trading in Quantitative Finance." arXiv preprint arXiv:2011.09607, 2020. [paper](https://arxiv.org/abs/2011.09607) [code](https://github.com/AI4Finance-LLC/FinRL-Library)
 - **Industrial Benchmark**: Hein D, Depeweg S, Tokic M, et al. "A Benchmark Environment Motivated by Industrial Control Problems." Proceedings of the 2017 IEEE Symposium Series on Computational Intelligence, pp. 1-8, 2017. [paper](https://arxiv.org/abs/1709.09480) [code](https://github.com/siemens/industrialbenchmark)
 - **MuJoCo**: Todorov E, Erez T, Tassa Y. "Mujoco: A Physics Engine for Model-based Control." Proceedings of the 2012 IEEE/RSJ International Conference on Intelligent Robots and Systems, pp. 5026-5033, 2012. [paper](https://ieeexplore.ieee.org/abstract/document/6386109) [website](https://gym.openai.com/envs/#mujoco)
+
+## Licenses
+All datasets are licensed under the [Creative Commons Attribution 4.0 License (CC BY)](https://creativecommons.org/licenses/by/4.0/), and code is licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0.html).
