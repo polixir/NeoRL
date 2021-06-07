@@ -80,13 +80,13 @@ def test_citylearn():
 
 def test_finance():
     env = neorl.make("finance")
-    train_data, val_data = env.get_dataset(train_num=99, data_type="H", path=TEST_DATA_PATH)
+    train_data, val_data = env.get_dataset(train_num=100, data_type="H", path=TEST_DATA_PATH)
     assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
 
 
 def test_ib():
     env = neorl.make("ib")
-    train_data, val_data = env.get_dataset(train_num=99, data_type="M", path=TEST_DATA_PATH)
+    train_data, val_data = env.get_dataset(train_num=100, data_type="M", path=TEST_DATA_PATH)
     assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
 
 
@@ -98,10 +98,10 @@ def test_ib():
 
 def test_mujoco():
     env = neorl.make("HalfCheetah-v3")
-    train_data, val_data = env.get_dataset(train_num=99, data_type="L", path=TEST_DATA_PATH)
+    train_data, val_data = env.get_dataset(train_num=100, data_type="L", path=TEST_DATA_PATH)
     assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
     env = neorl.make("Walker2d-v3")
-    train_data, val_data = env.get_dataset(train_num=9, data_type="m", path=TEST_DATA_PATH)
+    train_data, val_data = env.get_dataset(train_num=10, data_type="m", path=TEST_DATA_PATH)
     assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
     env = neorl.make("Hopper-v3")
     train_data, val_data = env.get_dataset(train_num=0, data_type="e", path=TEST_DATA_PATH)

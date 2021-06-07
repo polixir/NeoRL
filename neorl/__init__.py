@@ -1,7 +1,7 @@
 import importlib
 
 
-def make(task: str, reward_func=None):
+def make(task: str, reward_func=None, done_func=None):
     try:    
         if task == "ib" or task == "Ib" or task == "industrial-benchmark" or task == "Industrial-Benchmark":
             from neorl.neorl_envs.ib import ib_envs, get_env
@@ -40,7 +40,15 @@ def make(task: str, reward_func=None):
         default_reward_func = importlib.import_module(f"neorl.neorl_envs.{task}.{task}_reward").get_reward
     except ModuleNotFoundError:
         default_reward_func = None
-
+        
     env.set_reward_func(default_reward_func if reward_func is None else reward_func)
+        
+
+    try:
+        default_done_func = importlib.import_module(f"neorl.neorl_envs.{task}.{task}_done").get_done
+    except ModuleNotFoundError:
+        default_done_func = None
+    
+    env.set_done_func(default_done_func if done_func is None else done_func)
 
     return env

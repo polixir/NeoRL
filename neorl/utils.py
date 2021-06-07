@@ -35,7 +35,7 @@ def get_file_md5(filename):
     return my_hash.hexdigest()
 
 
-def download_dataset_from_url(dataset_url_md5, name, to_path):
+def download_dataset_from_url(dataset_url_md5, name, to_path, verbose=1):
     """
     Download dataset from url to `to_path + name`.
     """
@@ -56,9 +56,10 @@ def download_dataset_from_url(dataset_url_md5, name, to_path):
         if local_file_md5 == dataset_md5:
             return dataset_filepath
         else:
-            print(f"Local dataset {name} is broken, ready to re-download.")
-
-    print(f'Downloading dataset: {dataset_url} to {dataset_filepath}')
+            if verbose != 0:
+                print(f"Local dataset {name} is broken, ready to re-download.")
+    if verbose != 0:
+        print(f'Downloading dataset: {dataset_url} to {dataset_filepath}')
     urllib.request.urlretrieve(dataset_url, dataset_filepath)
 
     if not os.path.exists(dataset_filepath):

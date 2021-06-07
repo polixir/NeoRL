@@ -15,8 +15,8 @@ def get_reward(data):
     CRF = 3.0
     CRC = 1.0
 
-    fatigue = obs_next[:, -2]
-    consumption = obs_next[:, -1]
+    fatigue = obs_next[:, 4]
+    consumption = obs_next[:, 5]
 
     cost = CRF * fatigue + CRC * consumption
 

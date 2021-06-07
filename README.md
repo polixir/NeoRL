@@ -1,12 +1,16 @@
 # NeoRL
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://licensebuttons.net/l/by/3.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
 
-This repository is the interface for the offline reinforcement learning benchmark NeoRL: NEar real-world benchmarks for Offline Reinforcement Learning.
+This repository is the interface for the offline reinforcement learning benchmark NeoRL: A Near Real-World Benchmark for Offline Reinforcement Learning.
 
-The NeoRL benchmarks contains environments, datasets, and reward functions for training and benchmarking offline reinforcement learning algorithms. Current benchmarks contains environments of CityLearn, FinRL, IB, and three MuJoCo tasks.
+The NeoRL benchmark contains environments, datasets, and reward functions for training and benchmarking offline reinforcement learning algorithms. Current benchmark contains environments of CityLearn, FinRL, IB, and three Gym-MuJoCo tasks.
 
-More about the NeoRL benchmarks can be found at http://polixir.ai/research/neorl and the following paper
+More about the NeoRL benchmark can be found at http://polixir.ai/research/neorl and the following paper
 
-> Rongjun Qin, Songyi Gao, Xingyuan Zhang, Zhen Xu, Shengkai Huang, Zewen Li, Weinan Zhang, Yang Yu. Near Real-World Benchmarks for Offline Reinforcement Learning. https://arxiv.org/abs/2102.00714
+> Rongjun Qin, Songyi Gao, Xingyuan Zhang, Zhen Xu, Shengkai Huang, Zewen Li, Weinan Zhang, Yang Yu. NeoRL: A Near Real-World Benchmark for Offline Reinforcement Learning. https://arxiv.org/abs/2102.00714
+
+The benchmark is supported by two addtional repos, i.e. [OfflineRL](https://agit.ai/Polixir/OfflineRL) for training offline RL algorithms and [d3pe](https://agit.ai/Polixir/d3pe) for offline evaluation. Details for reproducing the benchmark can be found at [here](benchmark/).
 
 ## Install NeoRL interface
 
@@ -38,8 +42,8 @@ env = neorl.make("citylearn")
 env.reset()
 env.step(env.action_space.sample())
 
-# Get 99 trajectories of low level policy collection on citylearn task
-train_data, val_data = env.get_dataset(data_type = "low", train_num = 99)
+# Get 100 trajectories of low level policy collection on citylearn task
+train_data, val_data = env.get_dataset(data_type = "low", train_num = 100)
 ```
 
 To facilitate setting different goals, users can provide custom reward function to `neorl.make()` while creating an env. See [usage and examples of `neorl.make()`](https://agit.ai/Polixir/neorl/wiki/Parameter-usage#user-content-usage-of-neorl-make) for more details.
@@ -48,7 +52,7 @@ As a benchmark, in order to test algorithms conveniently and quickly, each task 
 with a small training dataset and a validation dataset by default. They can be obtained by 
 `env.get_dataset()`. Meanwhile, for flexibility, extra parameters can be passed into `get_dataset()` 
 to get multiple pairs of datasets for benchmarking. Each task collects data using a low, medium, 
-or high level policy; for each task, we provide training data for a maximum of 9999 trajectories. 
+or high level policy; for each task, we provide training data for a maximum of 10000 trajectories. 
 See [usage of `get_dataset()`](https://agit.ai/Polixir/neorl/wiki/Parameter-usage#user-content-usage-of-get-dataset) for more details about parameter usage.
 
 ## Data in NeoRL
@@ -75,3 +79,6 @@ In NeoRL, training data and validation data returned by `get_dataset()` function
 - **FinRL**: Liu X Y, Yang H, Chen Q, et al. "FinRL: A Deep Reinforcement Learning Library for Automated Stock Trading in Quantitative Finance." arXiv preprint arXiv:2011.09607, 2020. [paper](https://arxiv.org/abs/2011.09607) [code](https://github.com/AI4Finance-LLC/FinRL-Library)
 - **Industrial Benchmark**: Hein D, Depeweg S, Tokic M, et al. "A Benchmark Environment Motivated by Industrial Control Problems." Proceedings of the 2017 IEEE Symposium Series on Computational Intelligence, pp. 1-8, 2017. [paper](https://arxiv.org/abs/1709.09480) [code](https://github.com/siemens/industrialbenchmark)
 - **MuJoCo**: Todorov E, Erez T, Tassa Y. "Mujoco: A Physics Engine for Model-based Control." Proceedings of the 2012 IEEE/RSJ International Conference on Intelligent Robots and Systems, pp. 5026-5033, 2012. [paper](https://ieeexplore.ieee.org/abstract/document/6386109) [website](https://gym.openai.com/envs/#mujoco)
+
+## Licenses
+All datasets are licensed under the [Creative Commons Attribution 4.0 License (CC BY)](https://creativecommons.org/licenses/by/4.0/), and code is licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0.html).
