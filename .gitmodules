@@ -1,0 +1,6 @@
+[submodule "benchmark/OfflineRL"]
+	path = benchmark/OfflineRL
+	url = https://agit.ai/Polixir/OfflineRL.git
+[submodule "benchmark/d3pe"]
+	path = benchmark/d3pe
+	url = https://agit.ai/Polixir/d3pe.git
