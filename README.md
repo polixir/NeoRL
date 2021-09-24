@@ -4,7 +4,7 @@
 
 This repository is the interface for the offline reinforcement learning benchmark NeoRL: A Near Real-World Benchmark for Offline Reinforcement Learning.
 
-The NeoRL benchmark contains environments, datasets, and reward functions for training and benchmarking offline reinforcement learning algorithms. Current benchmark contains environments of CityLearn, FinRL, IB, and three Gym-MuJoCo tasks.
+The NeoRL benchmark contains environments, datasets, and reward functions for training and benchmarking offline reinforcement learning algorithms. Current benchmark contains environments of CityLearn, FinRL, IB, and three Gym-MuJoCo tasks. The datasets are collected by policies trained by [SAC](https://arxiv.org/abs/1801.01290), with 80% chance to take the most likely action and 20% chance to sample from the trained policies to reflect the mistakes of human operators in real-world systems. The entire dataset can be reproduced with this [repo](https://agit.ai/Polixir/OfflineData).  
 
 More about the NeoRL benchmark can be found at http://polixir.ai/research/neorl and an early version of the paper
 
