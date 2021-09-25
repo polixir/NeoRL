@@ -4,9 +4,9 @@
 
 This repository is the interface for the offline reinforcement learning benchmark NeoRL: A Near Real-World Benchmark for Offline Reinforcement Learning.
 
-The NeoRL benchmark contains environments, datasets, and reward functions for training and benchmarking offline reinforcement learning algorithms. Current benchmark contains environments of CityLearn, FinRL, IB, and three Gym-MuJoCo tasks. The datasets are collected by policies trained by [SAC](https://arxiv.org/abs/1801.01290), with 80% chance to take the most likely action and 20% chance to sample from the trained policies to reflect the mistakes of human operators in real-world systems. The entire dataset can be reproduced with this [repo](https://agit.ai/Polixir/OfflineData).  
+The NeoRL repository contains datasets for training, tools for validation and corresponding environments for testing the trained policies. Current datasets are collected from three open-source environments, i.e., CityLearn, FinRL, IB, and three Gym-MuJoCo tasks. We use [SAC](https://arxiv.org/abs/1801.01290) to train on each domain, and then use policies around 25%, 50% and 75% of the highest episode return to generate three-level quality of datasets respectively for each task. Since the action spaces of these domains are continuous, the policy output is the mean and stdev of a Gaussian distribution. During data collection, with 80% chance we take the mean of the Gaussian policy and with 20% probaility to sample from the trained policies to reflect the mistakes of human operators in real-world systems. The entire datasets can be reproduced with this [repo](https://agit.ai/Polixir/OfflineData).  
 
-More about the NeoRL benchmark can be found at http://polixir.ai/research/neorl and an early version of the paper
+More about the NeoRL benchmark can be found at http://polixir.ai/research/neorl (an early version).
 
 > Rongjun Qin, Songyi Gao, Xingyuan Zhang, Zhen Xu, Shengkai Huang, Zewen Li, Weinan Zhang, Yang Yu. NeoRL: A Near Real-World Benchmark for Offline Reinforcement Learning. https://arxiv.org/abs/2102.00714
 
