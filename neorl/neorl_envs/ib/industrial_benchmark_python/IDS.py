@@ -47,8 +47,8 @@ class IDS(object):
         '''
 
         # fix seed only for testing
-        #if inital_seed != None:
-        np.random.seed(inital_seed)
+        if inital_seed is not None:
+            np.random.seed(inital_seed)
 
         # constants
         self.maxRequiredStep = np.sin(15./180.*np.pi)

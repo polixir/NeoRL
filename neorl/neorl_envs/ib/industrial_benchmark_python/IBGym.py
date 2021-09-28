@@ -55,7 +55,8 @@ class IBGym(core.EnvData):
 
         # initial seeding
         self.init_seed = init_seed
-        np.random.seed(self.init_seed)
+        if self.init_seed is not None:
+            np.random.seed(self.init_seed)
 
         # Used to determine whether to return the absolute value or the relative change in the cost function
         self.reward_function = reward_type
