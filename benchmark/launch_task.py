@@ -14,6 +14,7 @@ SEEDS = [7, 42, 210]
 
 ResultDir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'results'))
 
+
 def training_function(config):
     ''' run on a seed '''
     config["kwargs"]['seed'] = config['seed']
@@ -21,29 +22,36 @@ def training_function(config):
     train_buffer, val_buffer = load_data_from_neorl(algo_config["task"], algo_config["task_data_type"], algo_config["task_train_num"])
     algo_config.update(config)
     algo_config["device"] = "cuda"
-    algo_config['dynamics_path'] = os.path.join(config['dynamics_root'], 
-        f'{algo_config["task"]}-{algo_config["task_data_type"]}-{algo_config["task_train_num"]}-{config["seed"]}.pt')
-    algo_config['behavior_path'] = os.path.join(config['behavior_root'], 
-        f'{algo_config["task"]}-{algo_config["task_data_type"]}-{algo_config["task_train_num"]}-{config["seed"]}.pt')
+    algo_config['dynamics_path'] = os.path.join(config['dynamics_root'],
+                                                f'{algo_config["task"]}-{algo_config["task_data_type"]}-{algo_config["task_train_num"]}-{config["seed"]}.pt')
+    algo_config['behavior_path'] = os.path.join(config['behavior_root'],
+                                                f'{algo_config["task"]}-{algo_config["task_data_type"]}-{algo_config["task_train_num"]}-{config["seed"]}.pt')
     algo_init = algo_init_fn(algo_config)
     algo_trainer = algo_trainer_obj(algo_init, algo_config)
-
-    callback = PeriodicCallBack(OnlineCallBackFunction(), 50)
-    callback.initialize(train_buffer=train_buffer, val_buffer=val_buffer, task=algo_config["task"], number_of_runs=1000)
+    if config['kwargs']['task'] == 'sp' or 'sales' in config['kwargs']['task']:
+        # Note the evaluation is slow in sp env, since it interact with 10,000 user models each step, 
+        # which can be viewed as run 10,000 trajectories simultaneously and average the rewards. However, we do not need to 
+        # too many trials in this env, so we just set the default number of runs to 3.
+        callback = PeriodicCallBack(OnlineCallBackFunction(), 50)
+        callback.initialize(train_buffer=train_buffer, val_buffer=val_buffer, task=algo_config["task"], number_of_runs=3)
+    else:
+        callback = PeriodicCallBack(OnlineCallBackFunction(), 50)
+        callback.initialize(train_buffer=train_buffer, val_buffer=val_buffer, task=algo_config["task"], number_of_runs=1000)
 
     algo_trainer.train(train_buffer, val_buffer, callback_fn=callback)
     algo_trainer.exp_logger.flush()
-    time.sleep(10) # sleep ensure the log is flushed even if the disks or cpus are busy 
+    time.sleep(10)  # sleep ensure the log is flushed even if the disks or cpus are busy
 
     result, parameter = find_result(algo_trainer.index_path)
 
     return {
-        'reward' : result,
-        'parameter' : parameter,
-        'seed' : config['seed'],
+        'reward': result,
+        'parameter': parameter,
+        'seed': config['seed'],
     }
 
-def upload_result(task_name : str, algo_name : str, results : list):
+
+def upload_result(task_name: str, algo_name: str, results: list):
     ''' upload the result '''
     # upload txt
     file_name = task_name + ',' + algo_name + '.txt'
@@ -62,15 +70,17 @@ def upload_result(task_name : str, algo_name : str, results : list):
     with open(os.path.join(ResultDir, file_name), 'w') as f:
         json.dump(results, f, indent=4)
 
-def find_result(exp_dir : str):
+
+def find_result(exp_dir: str):
     ''' return the online performance of last epoch and the hyperparameter '''
     data_file = os.path.join(exp_dir, 'objects', 'map', 'dictionary.log')
     with open(data_file, 'r') as f:
         data = json.load(f)
     result = data['__METRICS__']['Reward_Mean_Env'][0]['values']['last']
     grid_search_keys = list(data['hparams']['grid_tune'].keys())
-    parameter = {k : data['hparams'][k] for k in grid_search_keys}
+    parameter = {k: data['hparams'][k] for k in grid_search_keys}
     return result, parameter
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -91,13 +101,13 @@ if __name__ == '__main__':
     ''' run and upload result '''
     config = {}
     config["kwargs"] = {
-        "exp_name" : f'{domain}-{level}-{amount}-{algo}',
-        "algo_name" : algo,
-        "task" : domain,
-        "task_data_type" : level,
-        "task_train_num" : amount,
+        "exp_name": f'{domain}-{level}-{amount}-{algo}',
+        "algo_name": algo,
+        "task": domain,
+        "task_data_type": level,
+        "task_train_num": amount,
     }
-    _, _, algo_config = algo_select({"algo_name" : algo})
+    _, _, algo_config = algo_select({"algo_name": algo})
 
     parameter_names = []
     grid_tune = algo_config["grid_tune"]
@@ -108,7 +118,7 @@ if __name__ == '__main__':
     config['seed'] = tune.grid_search(SEEDS)
     config['dynamics_root'] = os.path.abspath('dynamics')
     config['behavior_root'] = os.path.abspath('behaviors')
-    
+
     analysis = tune.run(
         training_function,
         name=f'{domain}-{level}-{amount}-{algo}',
@@ -117,8 +127,8 @@ if __name__ == '__main__':
         metric='reward',
         mode='max',
         resources_per_trial={
-            "cpu": 1,
-            "gpu": 1.0,
+            "cpu": 2,
+            "gpu": 0.5,  # if no gpu or the memory of gpu is not enough, change this parameter
         }
     )
 
@@ -131,26 +141,27 @@ if __name__ == '__main__':
         for pn in parameter_names:
             parameter[pn] = df[f'parameter.{pn}'][i]
             if type(parameter[pn]) == np.int64:
-                parameter[pn] = int(parameter[pn]) # covert to python type
+                parameter[pn] = int(parameter[pn])  # covert to python type
         parameter_string = str(parameter)
 
         if not parameter_string in results:
             results[parameter_string] = {
-                'parameter' : parameter,
-                'rewards' : [0, 0, 0],
+                'parameter': parameter,
+                'rewards': [0, 0, 0],
             }
 
         results[parameter_string]['rewards'][SEEDS.index(df['seed'][i])] = df['reward'][i]
 
+
     def summary_result(single_result):
         single_result.update({
-            'reward_mean' : np.mean(single_result['rewards']),
-            'reward_std' : np.std(single_result['rewards']),
+            'reward_mean': np.mean(single_result['rewards']),
+            'reward_std': np.std(single_result['rewards']),
         })
         return single_result
 
+
     results = [summary_result(single_result) for single_result in results.values()]
-        
 
     ''' upload result '''
     upload_result(f'{domain}-{level}-{amount}', algo, results)

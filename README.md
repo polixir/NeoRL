@@ -6,33 +6,33 @@ This repository is the interface for the offline reinforcement learning benchmar
 
 The NeoRL benchmark contains environments, datasets, and reward functions for training and benchmarking offline reinforcement learning algorithms. Current benchmark contains environments of CityLearn, FinRL, IB, and three Gym-MuJoCo tasks.
 
-More about the NeoRL benchmark can be found at http://polixir.ai/research/neorl and an early version of the paper
+A preliminary version introducing the NeoRL benchmark can be found at http://polixir.ai/research/neorl and the following paper
 
 > Rongjun Qin, Songyi Gao, Xingyuan Zhang, Zhen Xu, Shengkai Huang, Zewen Li, Weinan Zhang, Yang Yu. NeoRL: A Near Real-World Benchmark for Offline Reinforcement Learning. https://arxiv.org/abs/2102.00714
 
-Running the benchmark relies on two additional repositories, i.e. [OfflineRL](https://agit.ai/Polixir/OfflineRL) for training offline RL algorithms and [d3pe](https://agit.ai/Polixir/d3pe) for offline evaluation (also included in this repo under the benchmark directory). Steps for reproducing the benchmark can be found at [here](benchmark/).
+The benchmark is supported by two addtional repos, i.e. [OfflineRL](https://agit.ai/Polixir/OfflineRL) for training offline RL algorithms and [d3pe](https://agit.ai/Polixir/d3pe) for offline evaluation. Details for reproducing the benchmark can be found at [here](benchmark/).
 
-## Install NeoRL
+## Install NeoRL interface
 
-NeoRL can be installed as follows:
+NeoRL interface can be installed as follows:
 
 ```
-git clone https://github.com/polixir/NeoRL.git
+git clone https://agit.ai/Polixir/neorl.git
 cd neorl
 pip install -e .
 ```
 
-After installation, CityLearn, Finance, and the industrial benchmark will be available. If you want to use MuJoCo in your tasks, it is necessary to obtain a [license](https://www.roboti.us/license.html) and follow the setup instructions, and then run:
+After installation, CityLearn, Finance, and the industrial benchmark will be available. If you want  to leverage MuJoCo in your tasks, it is necessary to obtain a [license](https://www.roboti.us/license.html) and follow the setup instructions, and then run:
 
 ```
 pip install -e .[mujoco]
 ```
 
-So far, "HalfCheetah-v3", "Walker2d-v3", and "Hopper-v3" are supported within MuJoCo.
+So far "HalfCheetah-v3", "Walker2d-v3", and "Hopper-v3" are supported within MuJoCo.
 
 ## Using NeoRL
 
-NeoRL uses the [OpenAI Gym](https://github.com/openai/gym) API. Tasks are created via the `neorl.make` function. A full list of all tasks is [available here](https://github.com/polixir/NeoRL/wiki/Tasks).
+NeoRL uses the [OpenAI Gym](https://github.com/openai/gym) API. Tasks are created via the `neorl.make` function. A full list of all tasks is [available here](https://agit.ai/Polixir/neorl/wiki/Tasks).
 
 ```
 import neorl
@@ -46,30 +46,30 @@ env.step(env.action_space.sample())
 train_data, val_data = env.get_dataset(data_type = "low", train_num = 100)
 ```
 
-To facilitate setting different goals, users can provide customized reward function to `neorl.make()` while creating an env. See [usage and examples of `neorl.make()`](https://github.com/polixir/NeoRL/wiki/Parameter-usage#user-content-usage-of-neorl-make) for more details.
+To facilitate setting different goals, users can provide custom reward function to `neorl.make()` while creating an env. See [usage and examples of `neorl.make()`](https://agit.ai/Polixir/neorl/wiki/Parameter-usage#user-content-usage-of-neorl-make) for more details.
 
-In order to test algorithms conveniently and quickly, each task is associated 
-with a small training dataset and a validation dataset (also test dataset) by default. They can be obtained by 
-`env.get_dataset()`. Extra parameters can be passed into `get_dataset()` 
+As a benchmark, in order to test algorithms conveniently and quickly, each task is associated 
+with a small training dataset and a validation dataset by default. They can be obtained by 
+`env.get_dataset()`. Meanwhile, for flexibility, extra parameters can be passed into `get_dataset()` 
 to get multiple pairs of datasets for benchmarking. Each task collects data using a low, medium, 
-or high level policy; for each task, we provide training data with a maximum of 10,000 trajectories. 
-See [usage of `get_dataset()`](https://github.com/polixir/NeoRL/wiki/Parameter-usage#user-content-usage-of-get-dataset) for more details about parameter usage.
+or high level policy; for each task, we provide training data for a maximum of 10000 trajectories. 
+See [usage of `get_dataset()`](https://agit.ai/Polixir/neorl/wiki/Parameter-usage#user-content-usage-of-get-dataset) for more details about parameter usage.
 
 ## Data in NeoRL
 
 In NeoRL, training data and validation data returned by `get_dataset()` function are `dict` with  the same format:
 
-- `obs`: A batch of current observations.
+- `obs`: An <i> N by observation dimensional array </i> of current step's observation.
 
-- `next_obs`: A batch of next observations.
+- `next_obs`: An <i> N by observation dimensional array </i> of next step's observation.
 
-- `action`: A batch of actions.
+- `action`: An <i> N by action dimensional array </i> of actions.
 
-- `reward`: A batch of 1-dimensional array of rewards.
+- `reward`: An <i> N dimensional array of rewards</i>.
 
-- `done`: A batch of 1-dimensional array of episode termination flags.
+- `done`: An <i> N dimensional array of episode termination flags</i>.
 
-- `index`: An trajectory number-dimensional array. 
+- `index`: An <i> trajectory number-dimensional array</i>. 
   The numbers in index indicate the beginning of trajectories.
 
 ## Reference

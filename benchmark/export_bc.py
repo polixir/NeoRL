@@ -7,7 +7,7 @@ target_folder = 'behaviors'
 
 if not os.path.exists(target_folder): os.makedirs(target_folder)
 
-for task_name in sorted(filter(lambda x: 'bc' in x, os.listdir(aim_folder))):
+for task_name in sorted(filter(lambda x: 'bc' in x and 'bcq' not in x, os.listdir(aim_folder))):  # "bc" in "bcq" will return True, thus should be treated separately.
     task_folder = os.path.join(aim_folder, task_name)
 
     exp_names = list(filter(lambda x: not x == 'index' and not 'json' in x, os.listdir(task_folder)))
@@ -24,17 +24,17 @@ for task_name in sorted(filter(lambda x: 'bc' in x, os.listdir(aim_folder))):
 
     for exp_name in exp_names:
         exp_folder = os.path.join(task_folder, exp_name)
-        
-        with open(os.path.join(exp_folder, 'objects', 'map', 'dictionary.log'), 'r') as f:
-            data = json.load(f)
+
+        with open(os.path.join(exp_folder, 'objects', 'map', 'dictionary.log'), 'r', encoding='utf-8-sig', errors='ignore') as f:  # fix the json load problem
+            data = json.load(f, strict=False)
             seed = data['hparams']['seed']
 
         with open(os.path.join(exp_folder, 'metric_logs.json'), 'r') as f:
             metrics = json.load(f)
 
         max_step = max([int(name.split('.')[0]) for name in os.listdir(os.path.join(exp_folder, 'models'))])
-        
+
         policy_file = os.path.join(exp_folder, 'models', f'{max_step}.pt')
         target_policy_file = os.path.join(target_folder, f'{domain}-{level}-{amount}-{seed}.pt')
 
-        os.system(f"cp {policy_file} {target_policy_file}")                 
+        os.system(f"cp {policy_file} {target_policy_file}")

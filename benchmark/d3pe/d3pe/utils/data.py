@@ -75,10 +75,7 @@ def get_neorl_datasets(task : str, level : str, amount : int) -> Tuple[OPEDatase
     train_data, val_data = env.get_dataset(data_type=level, train_num=amount)
     train_start_indexes = train_data.pop('index')
     val_start_indexes = val_data.pop('index')
-    return (
-        OPEDataset(train_data, train_start_indexes, obs_space=env.observation_space, action_space=env.action_space), 
-        OPEDataset(val_data, val_start_indexes, obs_space=env.observation_space, action_space=env.action_space)
-    )
+    return OPEDataset(train_data, train_start_indexes, obs_space=env.observation_space, action_space=env.action_space), OPEDataset(val_data, val_start_indexes, obs_space=env.observation_space, action_space=env.action_space)
 
 def to_torch(data : dict, dtype = torch.float32, device = 'cuda' if torch.cuda.is_available() else 'cpu') -> Dict[str, torch.Tensor]:
     return {k : torch.as_tensor(v, dtype=dtype, device=device) for k, v in data.items()}

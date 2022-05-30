@@ -6,3 +6,6 @@ if __name__ == '__main__':
             for amount in [100, 1000, 10000] if not domain == 'finance' else [100, 1000]:
                 env = neorl.make(domain)
                 env.get_dataset(data_type=level, train_num=amount)
+    # for download sales promotion dataset
+    env = neorl.make('sp')
+    env.get_dataset(data_type='human', train_num=10000)

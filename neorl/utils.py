@@ -165,6 +165,7 @@ def sample_dataset(task_name_version, path, traj_num, data_json, data_type, use_
                 data_npz = np.load(data_path)
                 data_dict = dict(data_npz)
                 data_dict["index"] = np.insert(data_dict["index"], 0, 0)
+                data_dict['index'] = data_dict['index'].astype(np.int32)  # convert the float32 form of "index" to int32
                 break
             except Exception:
                 raise Exception(f"Could not download the dataset: {i}")

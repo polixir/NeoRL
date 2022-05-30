@@ -1,3 +1,4 @@
+import torch
 import numpy as np
 
 def get_reward(data):

@@ -11,6 +11,10 @@ D3PE (Deep Data-Driven Policy Evaluation) aims to evaluation a large set of cand
 ```bash
 pip install -e .
 ```
+or
+```
+pip install git+https://agit.ai/Polixir/d3pe.git
+```
 
 ## Usage
 

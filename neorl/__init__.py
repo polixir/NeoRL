@@ -3,17 +3,17 @@ import importlib
 
 def make(task: str, reward_func=None, done_func=None):
     try:    
-        if task == "ib" or task == "Ib" or task == "industrial-benchmark" or task == "Industrial-Benchmark":
+        if task.lower() == "ib" or task.lower() == "industrial-benchmark":
             from neorl.neorl_envs.ib import ib_envs, get_env
             task = "ib"
             assert task in ib_envs.keys()
             env = get_env(ib_envs[task])
-        elif task == "citylearn" or task == "Citylearn":
+        elif task.lower() == "citylearn":
             from neorl.neorl_envs.citylearn import citylearn_envs, get_env
             task = "citylearn"
             assert task in citylearn_envs.keys()
             env = get_env(citylearn_envs[task]) 
-        elif task == "finance" or task == "Finance":
+        elif task.lower() == "finance":
             from neorl.neorl_envs.finance import finance_envs, get_env
             task = "finance"
             assert task in finance_envs.keys()
@@ -25,6 +25,12 @@ def make(task: str, reward_func=None, done_func=None):
         elif task in ["HalfCheetah-v3", "Walker2d-v3", "Hopper-v3"]:
             from neorl.neorl_envs import mujoco
             env = mujoco.make_env(task)
+        elif task.lower() == 'sp' or task.lower() == 'sp_v0' or task.lower() == 'sales_promotion_v0':
+            from neorl.neorl_envs.SalesPromotion import get_env, sales_promotion_envs
+            task = 'sales_promotion_v0'
+            assert task in sales_promotion_envs.keys()
+            env = get_env(sales_promotion_envs[task])
+            
         #elif task in ['halfcheetah-medium-v0', 'hopper-medium-v0', 'walker2d-medium-v0']:
         #    from neorl.neorl_envs import d4rl
         #    env = d4rl.make_env(task)

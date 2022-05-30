@@ -1,0 +1,30 @@
+metadata:
+  version: sp
+  graph:
+    action:
+    - obs
+    next_obs:
+    - obs
+    - action
+  columns:
+  - obs_0:
+      type: continuous
+      dim: obs
+  - obs_1:
+      type: continuous
+      dim: obs
+  - obs_2:
+      type: continuous
+      dim: obs
+  - obs_3:
+      type: continuous
+      dim: obs
+  - action_0:
+      type: continuous
+      dim: action
+  - action_1:
+      type: continuous
+      dim: action
+  - reward_0:
+      type: continuous
+      dim: reward

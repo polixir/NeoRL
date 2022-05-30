@@ -18,10 +18,12 @@ ResultDir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'results'))
 aim_folder = os.path.abspath(os.path.join(os.path.dirname(offlinerl.__file__), '..', 'offlinerl_tmp', '.aim'))
 SEEDS = [7, 42, 210]
 
+
 def check_file(domain, level, amount, algo, ope):
     ''' check if the result is already exist '''
     json_file = f'{domain}-{level}-{amount},{algo},{ope}.json'
     return json_file in os.listdir(ResultDir)
+
 
 def launch_ope(config):
     ''' run on a seed '''
@@ -30,7 +32,7 @@ def launch_ope(config):
         evaluator = FQEEvaluator()
     elif config['ope'] == 'is':
         evaluator = ISEvaluator()
-    
+
     train_dataset, val_dataset = get_neorl_datasets(config["domain"], config['level'], config['amount'])
 
     evaluator.initialize(train_dataset=train_dataset, val_dataset=val_dataset)
@@ -47,17 +49,19 @@ def launch_ope(config):
     ope = evaluator(policy)
 
     return {
-        'gt' : gt,
-        'ope' : ope,
-        'policy_file' : policy_file,
-        'exp_name' : config['exp_name'],
-        'seed' : config['seed'],
+        'gt': gt,
+        'ope': ope,
+        'policy_file': policy_file,
+        'exp_name': config['exp_name'],
+        'seed': config['seed'],
     }
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--algo', type=str, help='select from `bc`, `bcq`, `plas`, `cql`, `crr`, `bremen`, `mopo`')
     parser.add_argument('--ope', type=str, help='select from `fqe` and `is`')
+    parser.add_argument('--overwrite', default=False, action="store_true")
     parser.add_argument('--address', type=str, default=None, help='address of the ray cluster')
     args = parser.parse_args()
 
@@ -80,13 +84,13 @@ if __name__ == '__main__':
         if (not args.overwrite) and check_file(domain, level, amount, args.algo, args.ope): continue
 
         config = {
-            'seed' : tune.grid_search(SEEDS),
-            'ope' : args.ope,            
-            'domain' : domain,
-            'level' : level,
-            'amount' : amount,
-            'task_folder' : task_folder,
-            'exp_name' : tune.grid_search(exp_names),
+            'seed': tune.grid_search(SEEDS),
+            'ope': args.ope,
+            'domain': domain,
+            'level': level,
+            'amount': amount,
+            'task_folder': task_folder,
+            'exp_name': tune.grid_search(exp_names),
         }
 
         analysis = tune.run(
@@ -97,18 +101,18 @@ if __name__ == '__main__':
             metric='ope',
             mode='max',
             resources_per_trial={
-                "cpu": 1,
-                "gpu": 1.0,
+                "cpu": 2,
+                "gpu": 0.5,  # if no gpu or the memory of gpu is not enough, change this parameter
             }
         )
 
         ''' process result '''
         df = analysis.results_df
-        
-        results = {seed : {} for seed in SEEDS}
+
+        results = {seed: {} for seed in SEEDS}
 
         for i in range(len(df)):
-            results[df['seed'][i]][df['exp_name'][i]] = {'gt' : df['gt'][i], 'ope' : df['ope'][i]}
+            results[df['seed'][i]][df['exp_name'][i]] = {'gt': df['gt'][i], 'ope': df['ope'][i]}
 
         local_file = os.path.join(task_folder, f'{args.ope}.json')
         remote_file = os.path.join(ResultDir, f'{domain}-{level}-{amount},{args.algo},{args.ope}.json')
@@ -116,4 +120,4 @@ if __name__ == '__main__':
             json.dump(results, f, indent=4)
         os.system(f'cp {local_file} {remote_file}')
 
-        time.sleep(20) # wait ray to release the resource          
+        time.sleep(20)  # wait ray to release the resource

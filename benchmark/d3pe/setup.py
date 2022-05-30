@@ -1,5 +1,6 @@
 import os
 from setuptools import setup
+from setuptools import find_packages
 import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'd3pe'))
@@ -13,7 +14,7 @@ setup(
     name='d3pe',
     author='Icarus',
     author_email='wizardicarus@gmail.com',
-    py_modules=['d3pe'],
+    packages=find_packages(),
     version=__version__,
     install_requires=[
         'torch',

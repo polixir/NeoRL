@@ -116,9 +116,15 @@ if __name__ == '__main__':
     abs_path = os.path.abspath('dynamics')
 
     config = {}
-    config['task'] = tune.grid_search(['HalfCheetah-v3', 'Hopper-v3', 'Walker2d-v3', 'ib', 'finance', 'citylearn'])
-    config['level'] = tune.grid_search(['low', 'medium', 'high'])
-    config['amount'] = tune.grid_search([100, 1000, 10000])
+    # Train models of Gym-MuJoCo, IB, CityLearn and FinRL
+    # config['task'] = tune.grid_search(['HalfCheetah-v3', 'Hopper-v3', 'Walker2d-v3', 'ib', 'finance', 'citylearn'])
+    # config['level'] = tune.grid_search(['low', 'medium', 'high'])
+    # config['amount'] = tune.grid_search([100, 1000, 10000])
+    # Train models for SalesPromotion
+    config['task'] = tune.grid_search(['sp'])
+    config['level'] = tune.grid_search(['human'])
+    config['amount'] = tune.grid_search([10000])
+
     config['seed'] = tune.grid_search(SEEDS)
     config['dynamics_path'] = abs_path
 

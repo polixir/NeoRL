@@ -10,12 +10,16 @@ def miniblock(
     inp: int,
     oup: int,
     norm_layer: Optional[Callable[[int], nn.modules.Module]],
+    relu=True
 ) -> List[nn.modules.Module]:
     """Construct a miniblock with given input/output-size and norm layer."""
     ret: List[nn.modules.Module] = [nn.Linear(inp, oup)]
     if norm_layer is not None:
         ret += [norm_layer(oup)]
-    ret += [nn.ReLU(inplace=True)]
+    if relu:
+        ret += [nn.ReLU(inplace=True)]
+    else:
+        ret += [nn.Tanh()]
     return ret
 
 
@@ -25,7 +29,7 @@ class BasePolicy(ABC):
         pass
     
     def get_action(self, obs):
-        obs_tensor = torch.tensor(obs, device=next(self.parameters()).device, dtype=torch.float32)
+        obs_tensor = torch.as_tensor(obs, device=next(self.parameters()).device, dtype=torch.float32)
         act = to_array_as(self.policy_infer(obs_tensor), obs)
         
         return act
