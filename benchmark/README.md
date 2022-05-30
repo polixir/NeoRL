@@ -1,7 +1,10 @@
 ## Instruction for reproducing the benchmark
+
 Before you start, make sure you have followed the instruction [here](../README.md) to install NeoRL. All the results of the benchmark will be stored in the `results` folder.
 **Update:** We have also shared the raw result in [`results`](results/) (including the newly added sales promotion results), and you are free to analyze the result on your own.
+
 ### Step 1: Install dependencies
+
 ```bash
 git submodule init
 git submodule update
