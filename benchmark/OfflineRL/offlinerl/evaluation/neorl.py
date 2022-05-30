@@ -8,7 +8,7 @@ from collections import OrderedDict
 from offlinerl.utils.env import get_env
 
 
-@ray.remote(num_gpus=1)
+@ray.remote
 def test_one_trail(env, policy):
     # env = deepcopy(env)
     # policy = deepcopy(policy)
