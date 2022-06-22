@@ -63,6 +63,12 @@ class EnvData(gym.Env):
         """
         return self._reward_func
 
+    def get_name(self):
+        """
+        Get name of envs.
+        """
+        return self._name
+
     def set_name(self, name):
         """
         Set name for envs.

@@ -8,7 +8,7 @@ from collections import OrderedDict
 from offlinerl.utils.env import get_env
 
 
-@ray.remote
+@ray.remote(num_gpus=1)
 def test_one_trail(env, policy):
     # env = deepcopy(env)
     # policy = deepcopy(policy)
@@ -50,7 +50,7 @@ def test_on_real_env(policy, env, number_of_runs=100):
     policy = deepcopy(policy)
     policy.eval()
     
-    if "sp" or "sales" in env._name:
+    if "sales" in env.get_name():
         results = [test_one_trail_sp_local(env, policy) for _ in range(number_of_runs)]
     else:
         results = ray.get([test_one_trail.remote(env, policy) for _ in range(number_of_runs)])

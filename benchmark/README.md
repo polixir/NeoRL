@@ -6,9 +6,6 @@ Before you start, make sure you have followed the instruction [here](../README.m
 ### Step 1: Install dependencies
 
 ```bash
-git submodule init
-git submodule update
-
 cd OfflineRL/
 pip install -e .
 mkdir offlinerl_tmp
@@ -21,11 +18,19 @@ cd d3pe/
 pip install -e .
 cd ..
 ```
+**NOTE**: If you want to use the latest version of OfflineRL and d3pe repositories, you need to manually update them now, or you can use this [repo](https://agit.ai/Polixir/NeoRL) and update the above two repos with
+
+```
+git submodule update
+```
+
 
 ### Step 2: Download the datasets
+
 Download all the datasets before training the algorithms by `python download_datasets.py`.
 
 ### Step 3: Train policies by Offline RL Algorithms
+
 You can use `launch_algo.py` for this part. The script will automatically launch an algorithm for 51 tasks provided in NeoRL, and training them in parallel based on `ray`. For example, you can use `python launch_algo.py --algo bc` to launch benchmark for BC algorithm. The trained policies will be stored in `OfflineRL/offlinerl_tmp/.aim`. 
 The *sales promotion* environment (sp) used human expert datasets, and we do not unify it now as the Gym-MuJoCo, FinRL, CityLearn and IB environments (can be handled with a few lines of codes).
 So to run BC on the *sales promotions* task, you should use `launch_algo.py --domain sp --algo bc` to run BC on sp environment.
