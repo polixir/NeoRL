@@ -4,14 +4,16 @@
 
 This repository is the interface for the offline reinforcement learning benchmark NeoRL: A Near Real-World Benchmark for Offline Reinforcement Learning.
 
-The NeoRL repository contains datasets for training, tools for validation and corresponding environments for testing the trained policies. Current datasets are collected from three open-source environments, i.e., CityLearn, FinRL, IB, and three Gym-MuJoCo tasks. We use [SAC](https://arxiv.org/abs/1801.01290) to train on each domain, and then use policies around 25%, 50% and 75% of the highest episode return to generate three-level quality of datasets respectively for each task. Since the action spaces of these domains are continuous, the policy output is the mean and stdev of a Gaussian distribution. During data collection, with 80% chance we take the mean of the Gaussian policy and with 20% probaility to sample from the trained policies to reflect the mistakes of human operators in real-world systems. The entire datasets can be reproduced with this [repo](https://agit.ai/Polixir/OfflineData).  
+The NeoRL repository contains datasets for training, tools for validation and corresponding environments for testing the trained policies. Current datasets are collected from three open-source environments, i.e., CityLearn, FinRL, IB, and three Gym-MuJoCo tasks. We use [SAC](https://arxiv.org/abs/1801.01290) to train on each of these domains, and then use policies around 25%, 50% and 75% of the highest episode return to generate three-level quality of datasets respectively for each task. Since the action spaces of these domains are continuous, the policy output is the mean and stdev of a Gaussian distribution. During data collection, with 80% chance we take the mean of the Gaussian policy and with 20% probability to sample from the trained policies to reflect the mistakes of human operators in real-world systems. The entire datasets can be reproduced with this [repo](https://agit.ai/Polixir/OfflineData).  Besides, we also provide a sales promotion task. 
 
 
-A preliminary version introducing the NeoRL benchmark can be found at http://polixir.ai/research/neorl and the following paper
+More about the NeoRL benchmark can be found at http://polixir.ai/research/neorl and the following paper
 
-> Rongjun Qin, Songyi Gao, Xingyuan Zhang, Zhen Xu, Shengkai Huang, Zewen Li, Weinan Zhang, Yang Yu. NeoRL: A Near Real-World Benchmark for Offline Reinforcement Learning. https://arxiv.org/abs/2102.00714
+> Rong-Jun Qin, Songyi Gao, Xingyuan Zhang, Xiong-Hui Chen, Zewen Li, Weinan Zhang, Yang Yu. NeoRL: A Near Real-World Benchmark for Offline Reinforcement Learning.
 
-The benchmark is supported by two addtional repos, i.e. [OfflineRL](https://agit.ai/Polixir/OfflineRL) for training offline RL algorithms and [d3pe](https://agit.ai/Polixir/d3pe) for offline evaluation. Details for reproducing the benchmark can be found at [here](benchmark/).
+is now accessible at https://openreview.net/forum?id=jNdLszxdtra.
+
+The benchmark is supported by two additional repos, i.e. [OfflineRL](https://agit.ai/Polixir/OfflineRL) for training offline RL algorithms and [d3pe](https://agit.ai/Polixir/d3pe) for offline evaluation. Details for reproducing the benchmark can be found at [here](benchmark/).
 
 ## Install NeoRL interface
 
@@ -23,7 +25,7 @@ cd neorl
 pip install -e .
 ```
 
-After installation, CityLearn, Finance, and the industrial benchmark will be available. If you want  to leverage MuJoCo in your tasks, it is necessary to obtain a [license](https://www.roboti.us/license.html) and follow the setup instructions, and then run:
+After installation, CityLearn, Finance, the industrial benchmark and the sales promotion environments will be available. If you want  to leverage MuJoCo in your tasks, it is necessary to obtain a [license](https://www.roboti.us/license.html) and follow the setup instructions, and then run:
 
 ```
 pip install -e .[mujoco]
