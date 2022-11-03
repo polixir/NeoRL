@@ -7,6 +7,37 @@ import numpy as np
 TEST_DATA_PATH = DATA_PATH
 
 
+def test_salespromotion():
+    env = neorl.make("sp")
+    train_data, val_data = env.get_dataset(train_num=10000, data_type="human", path=TEST_DATA_PATH)
+    assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
+
+    TEST_NUM = 1000
+    TRAJ_LEN = 50
+    train_data, val_data = env.get_dataset(train_num=TEST_NUM, path=TEST_DATA_PATH)
+    assert len(train_data["obs"]) == TEST_NUM * TRAJ_LEN
+    assert len(train_data["next_obs"]) == TEST_NUM * TRAJ_LEN
+    assert len(train_data["action"]) == TEST_NUM * TRAJ_LEN
+    assert len(train_data["reward"]) == TEST_NUM * TRAJ_LEN
+    assert len(train_data["done"]) == TEST_NUM * TRAJ_LEN
+    assert len(train_data["index"]) == TEST_NUM
+
+
+def test_waterworks():
+    env = neorl.make("ww")
+    train_data, val_data = env.get_dataset(train_num=100, data_type="M", path=TEST_DATA_PATH)
+    assert int(len(train_data["index"]) * 0.1) == len(val_data["index"])
+
+    TEST_NUM = 10
+    train_data, val_data = env.get_dataset(train_num=TEST_NUM, path=TEST_DATA_PATH)
+    assert len(train_data["obs"]) == TEST_NUM * 1000
+    assert len(train_data["next_obs"]) == TEST_NUM * 1000
+    assert len(train_data["action"]) == TEST_NUM * 1000
+    assert len(train_data["reward"]) == TEST_NUM * 1000
+    assert len(train_data["done"]) == TEST_NUM * 1000
+    assert len(train_data["index"]) == TEST_NUM
+
+
 def test_citylearn():
     env = neorl.make("citylearn")
     TEST_NUM = 9

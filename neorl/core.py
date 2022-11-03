@@ -47,6 +47,8 @@ class EnvData(gym.Env):
                                        self._reward_func, "train")
         val_samples = None
         if need_val:
+            if task_name_version == 'waterworks_v0':
+                val_ratio = 1.0  # Note that a trajectory corresponds one day in the real-world. We just use the same number of trajectories for validation in waterworks task.
             val_samples = sample_dataset(task_name_version, path, int(train_num * val_ratio), data_json, data_type,
                                          use_data_reward, self._reward_func, "val")
         return train_samples, val_samples

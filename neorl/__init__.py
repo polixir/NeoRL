@@ -3,7 +3,7 @@ import importlib
 
 def make(task: str, reward_func=None, done_func=None):
     try:    
-        if task.lower() == "ib" or task.lower() == "industrial-benchmark":
+        if task.lower() == "ib" or task.lower() == "industrial-benchmark" or task.lower() == "industrial_benchmark":
             from neorl.neorl_envs.ib import ib_envs, get_env
             task = "ib"
             assert task in ib_envs.keys()
@@ -25,11 +25,16 @@ def make(task: str, reward_func=None, done_func=None):
         elif task in ["HalfCheetah-v3", "Walker2d-v3", "Hopper-v3"]:
             from neorl.neorl_envs import mujoco
             env = mujoco.make_env(task)
-        elif task.lower() == 'sp' or task.lower() == 'sp_v0' or task.lower() == 'sales_promotion_v0':
+        elif task.lower() == 'sp' or task.lower() == 'sp_v0' or task.lower() == 'sp-v0' or task.lower() == 'sales_promotion_v0'or task.lower() == 'sales_promotion-v0':
             from neorl.neorl_envs.SalesPromotion import get_env, sales_promotion_envs
             task = 'sales_promotion_v0'
             assert task in sales_promotion_envs.keys()
             env = get_env(sales_promotion_envs[task])
+        elif task.lower() =='ww' or task.lower() =='ww_v0' or task.lower() =='ww-v0' or task.lower() == 'waterworks_v0' or task.lower() == 'waterworks-v0':
+            from neorl.neorl_envs.WaterWorks import get_env, waterworks_envs
+            task = 'waterworks_v0'
+            assert task in waterworks_envs.keys()
+            env = get_env(waterworks_envs[task])
             
         #elif task in ['halfcheetah-medium-v0', 'hopper-medium-v0', 'walker2d-medium-v0']:
         #    from neorl.neorl_envs import d4rl

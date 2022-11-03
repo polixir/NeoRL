@@ -1,0 +1,66 @@
+metadata:
+  version: ww
+  graph:
+    action:
+    - obs
+    next_obs:
+    - obs
+    - action
+  columns:
+  - obs_0:
+      type: continuous
+      dim: obs
+  - obs_1:
+      type: continuous
+      dim: obs
+  - obs_2:
+      type: continuous
+      dim: obs
+  - obs_3:
+      type: continuous
+      dim: obs
+  - obs_4:
+      type: continuous
+      dim: obs
+  - obs_5:
+      type: continuous
+      dim: obs
+  - obs_6:
+      type: continuous
+      dim: obs
+  - obs_7:
+      type: continuous
+      dim: obs
+  - obs_8:
+      type: continuous
+      dim: obs
+  - obs_9:
+      type: continuous
+      dim: obs
+  - obs_10:
+      type: continuous
+      dim: obs
+  - obs_11:
+      type: continuous
+      dim: obs
+  - obs_12:
+      type: continuous
+      dim: obs
+  - obs_13:
+      type: continuous
+      dim: obs
+  - action_0:
+      type: continuous
+      dim: action
+  - action_1:
+      type: continuous
+      dim: action
+  - action_2:
+      type: continuous
+      dim: action
+  - action_3:
+      type: continuous
+      dim: action
+  - reward_0:
+      type: continuous
+      dim: reward
