@@ -9,7 +9,7 @@ setup(
     description="NeoRL is NEar real-world benchmarks for Offline Reinforcement Learning",
     url="https://agit.ai/Polixir/neorl.git",
     python_requires=">=3.7",
-    version='0.3.0',
+    version='0.3.1',
     packages=find_packages(),
     install_requires=[
         'gym',

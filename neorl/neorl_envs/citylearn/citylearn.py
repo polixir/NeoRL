@@ -258,7 +258,8 @@ class CityLearn(core.EnvData):
                 simulation_period_len=None, 
                 simulation_period_total = (0,8759), 
                 cost_function = ['ramping','1-load_factor','average_daily_peak','peak_demand','net_electricity_consumption'], 
-                central_agent = False, 
+                central_agent = False,
+                clip_action = False,
                 verbose = 0):
         with open(buildings_states_actions, "r") as json_file:
             self.buildings_states_actions = json.load(json_file)
@@ -275,6 +276,7 @@ class CityLearn(core.EnvData):
         self.central_agent = central_agent
         self.loss = []
         self.verbose = verbose
+        self.clip_action = clip_action
 
         self.buildings, self.observation_spaces, self.action_spaces, self.observation_space, self.action_space = building_loader(data_path, building_attributes, weather_file, solar_profile, building_ids, self.buildings_states_actions)
         
@@ -325,7 +327,8 @@ class CityLearn(core.EnvData):
         return building_info
         
     def step(self, actions):
-                
+        if self.clip_action:
+            actions = np.clip(actions, self.action_space.low, self.action_space.high)
         self.buildings_net_electricity_demand = []
         electric_demand = 0
         elec_consumption_dhw_storage = 0
@@ -488,7 +491,7 @@ class CityLearn(core.EnvData):
         self.net_electric_consumption_no_pv_no_storage.append(np.float32(electric_demand + elec_generation - elec_consumption_cooling_storage - elec_consumption_dhw_storage))
         
         terminal = self._terminal()
-        return (self._get_ob(), rewards, terminal, {})
+        return (self._get_ob(), rewards, terminal, {"actual_action": actions})
     
     def reset_baseline_cost(self):
         self.cost_rbc = None

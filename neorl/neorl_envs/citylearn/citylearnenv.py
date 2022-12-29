@@ -3,7 +3,7 @@ import random
 from neorl.neorl_envs.citylearn.citylearn import CityLearn
 
 
-def citylearn():
+def citylearn(clip_action=False):
     data_path = os.path.join(os.path.dirname(__file__),"data")
     climate_zone = random.choice([1,2,3,4,5])
     zone_data_path = os.path.join(data_path,"Climate_Zone_"+str(climate_zone))
@@ -22,7 +22,8 @@ def citylearn():
                     buildings_states_actions = building_state_actions, 
                     simulation_period_len = simulation_period_len, 
                     cost_function = objective_function, 
-                    central_agent = True, 
+                    central_agent = True,
+                    clip_action=clip_action,
                     verbose = 0)
     #print(env.action_space.shape,env.observation_space.shape)
 
